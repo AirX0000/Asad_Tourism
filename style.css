@@ -400,6 +400,12 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   100% { transform: translateY(0);  opacity: 1; }
 }
 
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+@media (max-width: 768px) {
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
+}
 
 /* Flight path lines */
 .hero__lines {

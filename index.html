@@ -69,75 +69,77 @@
       <span>Скролл</span>
     </div>
 
-    <!-- Floating dotted flight path lines -->
-    <svg class="hero__lines" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- Floating dotted flight path lines (Desktop) -->
+    <svg class="hero__lines desktop-only" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
-        <!-- Airplane shape (4-engine jet): pointing right, rotated by animateMotion -->
         <g id="plane">
-          <!-- Fuselage -->
           <path d="M 24,0 C 24,-2 10,-3 -16,-3 C -22,-3 -24,-1 -24,0 C -24,1 -22,3 -16,3 C 10,3 24,2 24,0 Z" fill="white" opacity="0.95"/>
-          <!-- Wings -->
           <path d="M 8,-2 L -10,-22 L -15,-22 L -4,-2 Z" fill="white" opacity="0.95"/>
           <path d="M 8,2 L -10,22 L -15,22 L -4,2 Z" fill="white" opacity="0.95"/>
-          <!-- Tail -->
           <path d="M -16,-2 L -24,-9 L -27,-9 L -21,-2 Z" fill="white" opacity="0.95"/>
           <path d="M -16,2 L -24,9 L -27,9 L -21,2 Z" fill="white" opacity="0.95"/>
-          <!-- Engines Left (Top) -->
           <rect x="-1" y="-10" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
           <rect x="-7" y="-16" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
-          <!-- Engines Right (Bottom) -->
           <rect x="-1" y="7.5" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
           <rect x="-7" y="14" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
         </g>
       </defs>
 
-      <!-- Line 1 — upper path -->
       <path id="flight-path-1" class="flight-line" d="M-100,400 Q300,100 700,300 T1600,200" />
-
-      <!-- Line 2 — lower path -->
       <path id="flight-path-2" class="flight-line flight-line--2" d="M-100,600 Q400,350 900,500 T1600,400" />
 
-      <!-- Airplane 1 — flies along upper path -->
       <g class="hero-plane">
         <use href="#plane" transform="scale(1.4)"/>
-        <animateMotion
-          dur="18s"
-          repeatCount="indefinite"
-          rotate="auto"
-          calcMode="spline"
-          keyTimes="0;1"
-          keySplines="0.4 0 0.6 1">
+        <animateMotion dur="18s" repeatCount="indefinite" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.6 1">
           <mpath href="#flight-path-1"/>
         </animateMotion>
       </g>
 
-      <!-- Airplane 2 — flies along lower path, delayed & smaller -->
       <g class="hero-plane hero-plane--2">
         <use href="#plane" transform="scale(1)"/>
-        <animateMotion
-          dur="24s"
-          begin="8s"
-          repeatCount="indefinite"
-          rotate="auto"
-          calcMode="spline"
-          keyTimes="0;1"
-          keySplines="0.4 0 0.6 1">
+        <animateMotion dur="24s" begin="8s" repeatCount="indefinite" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.6 1">
           <mpath href="#flight-path-2"/>
         </animateMotion>
       </g>
 
-      <!-- Airplane 3 — upper path again, longer delay for looping feel -->
       <g class="hero-plane hero-plane--3">
         <use href="#plane" transform="scale(0.85)"/>
-        <animateMotion
-          dur="18s"
-          begin="10s"
-          repeatCount="indefinite"
-          rotate="auto"
-          calcMode="spline"
-          keyTimes="0;1"
-          keySplines="0.4 0 0.6 1">
+        <animateMotion dur="18s" begin="10s" repeatCount="indefinite" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.6 1">
           <mpath href="#flight-path-1"/>
+        </animateMotion>
+      </g>
+    </svg>
+
+    <!-- Floating dotted flight path lines (Mobile) -->
+    <svg class="hero__lines mobile-only" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <g id="plane-mob">
+          <path d="M 24,0 C 24,-2 10,-3 -16,-3 C -22,-3 -24,-1 -24,0 C -24,1 -22,3 -16,3 C 10,3 24,2 24,0 Z" fill="white" opacity="0.95"/>
+          <path d="M 8,-2 L -10,-22 L -15,-22 L -4,-2 Z" fill="white" opacity="0.95"/>
+          <path d="M 8,2 L -10,22 L -15,22 L -4,2 Z" fill="white" opacity="0.95"/>
+          <path d="M -16,-2 L -24,-9 L -27,-9 L -21,-2 Z" fill="white" opacity="0.95"/>
+          <path d="M -16,2 L -24,9 L -27,9 L -21,2 Z" fill="white" opacity="0.95"/>
+          <rect x="-1" y="-10" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
+          <rect x="-7" y="-16" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
+          <rect x="-1" y="7.5" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
+          <rect x="-7" y="14" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
+        </g>
+      </defs>
+
+      <path id="flight-path-mob-1" class="flight-line" d="M-50,450 Q200,200 450,350" />
+      <path id="flight-path-mob-2" class="flight-line flight-line--2" d="M-50,650 Q200,450 450,550" />
+
+      <g class="hero-plane">
+        <use href="#plane-mob" transform="scale(1)"/>
+        <animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.6 1">
+          <mpath href="#flight-path-mob-1"/>
+        </animateMotion>
+      </g>
+
+      <g class="hero-plane hero-plane--2">
+        <use href="#plane-mob" transform="scale(0.8)"/>
+        <animateMotion dur="16s" begin="4s" repeatCount="indefinite" rotate="auto" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.6 1">
+          <mpath href="#flight-path-mob-2"/>
         </animateMotion>
       </g>
     </svg>
