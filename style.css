@@ -163,7 +163,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
    NAVIGATION
    ============================================ */
 .nav {
-  position: fixed;
+  position: absolute;
   top: 0; left: 0; right: 0;
   z-index: 1000;
   padding: 20px 0;
