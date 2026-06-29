@@ -1264,8 +1264,6 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   .footer__grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 40px; }
   .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
   .hero__actions { flex-direction: column; align-items: flex-start; }
-  .hero__tagline { opacity: 1; transform: none; animation: none; }
-  .hero__title, .hero__subtitle, .hero__actions { animation: none; opacity: 1; transform: none; }
 }
 
 @media (max-width: 480px) {
