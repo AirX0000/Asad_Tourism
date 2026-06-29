@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seven Heavens Travel — Мир ждёт тебя</title>
+  <meta name="description" content="Seven Heavens Travel — туристическое агентство премиального сервиса. Организация путешествий под ключ с гарантией безупречного комфорта на каждом этапе." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" id="nav-logo">
+        <img
+          src="logo.png"
+          alt="Seven Heavens Travel"
+          class="nav__logo-img nav__logo-img--light"
+        />
+        <img
+          src="logo-dark.png"
+          alt="Seven Heavens Travel"
+          class="nav__logo-img nav__logo-img--dark"
+        />
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#about" class="nav__link">О нас</a></li>
+        <li><a href="#destinations" class="nav__link">Направления</a></li>
+        <li><a href="#tours" class="nav__link">Туры</a></li>
+        <li><a href="#why" class="nav__link">Почему мы</a></li>
+        <li><a href="#contact" class="nav__link nav__link--cta">Связаться</a></li>
+      </ul>
+      <button class="nav__burger" id="nav-burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <img src="hero.png" alt="Vietnam Ha Long Bay" class="hero__img" />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+
+      <h1 class="hero__title" data-reveal>
+        Мир ждёт<br /><em>тебя</em>
+      </h1>
+      <p class="hero__subtitle" data-reveal>
+        Организация путешествий под ключ —<br />
+        от выбора направления до поддержки на каждом этапе
+      </p>
+      <div class="hero__actions" data-reveal>
+        <a href="#tours" class="btn btn--primary">Смотреть туры</a>
+        <a href="#contact" class="btn btn--ghost">Бесплатная консультация</a>
+      </div>
+    </div>
+    <div class="hero__scroll-indicator">
+      <!-- Animated mouse icon for scroll hint -->
+      <svg class="hero__scroll-mouse" width="26" height="40" viewBox="0 0 26 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="24" height="38" rx="12" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <rect class="hero__scroll-wheel" x="11.5" y="9" width="3" height="7" rx="1.5" fill="rgba(255,255,255,0.8)"/>
+      </svg>
+      <span>Скролл</span>
+    </div>
+
+    <!-- Floating dotted flight path lines -->
+    <svg class="hero__lines" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <!-- Airplane shape (4-engine jet): pointing right, rotated by animateMotion -->
+        <g id="plane">
+          <!-- Fuselage -->
+          <path d="M 24,0 C 24,-2 10,-3 -16,-3 C -22,-3 -24,-1 -24,0 C -24,1 -22,3 -16,3 C 10,3 24,2 24,0 Z" fill="white" opacity="0.95"/>
+          <!-- Wings -->
+          <path d="M 8,-2 L -10,-22 L -15,-22 L -4,-2 Z" fill="white" opacity="0.95"/>
+          <path d="M 8,2 L -10,22 L -15,22 L -4,2 Z" fill="white" opacity="0.95"/>
+          <!-- Tail -->
+          <path d="M -16,-2 L -24,-9 L -27,-9 L -21,-2 Z" fill="white" opacity="0.95"/>
+          <path d="M -16,2 L -24,9 L -27,9 L -21,2 Z" fill="white" opacity="0.95"/>
+          <!-- Engines Left (Top) -->
+          <rect x="-1" y="-10" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
+          <rect x="-7" y="-16" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
+          <!-- Engines Right (Bottom) -->
+          <rect x="-1" y="7.5" width="6" height="2.5" rx="1.2" fill="white" opacity="0.95"/>
+          <rect x="-7" y="14" width="5" height="2" rx="1" fill="white" opacity="0.95"/>
+        </g>
+      </defs>
+
+      <!-- Line 1 — upper path -->
+      <path id="flight-path-1" class="flight-line" d="M-100,400 Q300,100 700,300 T1600,200" />
+
+      <!-- Line 2 — lower path -->
+      <path id="flight-path-2" class="flight-line flight-line--2" d="M-100,600 Q400,350 900,500 T1600,400" />
+
+      <!-- Airplane 1 — flies along upper path -->
+      <g class="hero-plane">
+        <use href="#plane" transform="scale(1.4)"/>
+        <animateMotion
+          dur="18s"
+          repeatCount="indefinite"
+          rotate="auto"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines="0.4 0 0.6 1">
+          <mpath href="#flight-path-1"/>
+        </animateMotion>
+      </g>
+
+      <!-- Airplane 2 — flies along lower path, delayed & smaller -->
+      <g class="hero-plane hero-plane--2">
+        <use href="#plane" transform="scale(1)"/>
+        <animateMotion
+          dur="24s"
+          begin="8s"
+          repeatCount="indefinite"
+          rotate="auto"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines="0.4 0 0.6 1">
+          <mpath href="#flight-path-2"/>
+        </animateMotion>
+      </g>
+
+      <!-- Airplane 3 — upper path again, longer delay for looping feel -->
+      <g class="hero-plane hero-plane--3">
+        <use href="#plane" transform="scale(0.85)"/>
+        <animateMotion
+          dur="18s"
+          begin="10s"
+          repeatCount="indefinite"
+          rotate="auto"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines="0.4 0 0.6 1">
+          <mpath href="#flight-path-1"/>
+        </animateMotion>
+      </g>
+    </svg>
+
+  </section>
+
+  <!-- ======== STATS BAR ======== -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item" data-count="1200">
+          <span class="stats__num" id="stat-0">0</span>
+          <span class="stats__plus">+</span>
+          <p class="stats__label">довольных клиентов</p>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item" data-count="47">
+          <span class="stats__num" id="stat-1">0</span>
+          <span class="stats__plus">+</span>
+          <p class="stats__label">направлений</p>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item" data-count="5">
+          <span class="stats__num" id="stat-2">0</span>
+          <span class="stats__plus"></span>
+          <p class="stats__label">лет на рынке</p>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item" data-count="24">
+          <span class="stats__num" id="stat-3">0</span>
+          <span class="stats__plus">/7</span>
+          <p class="stats__label">поддержка в пути</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== ABOUT ======== -->
+  <section class="about section--live-bg" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__text">
+          <span class="section-tag" data-reveal>О компании</span>
+          <h2 class="section-title" data-reveal>
+            Путешествие должно дарить<br /><em>абсолютную лёгкость</em>
+          </h2>
+          <p class="about__desc" data-reveal>
+            Seven Heavens Travel — это больше, чем туристическое агентство.
+            Мы — надёжный проводник, который полностью освобождает вас от
+            организационной рутины, оставляя лишь предвкушение и радость путешествия.
+          </p>
+          <p class="about__desc" data-reveal>
+            Название отсылает к идиоме «на седьмом небе» — состоянию максимального
+            счастья и гармонии. Именно это мы создаём для каждого клиента.
+          </p>
+          <div class="about__values" data-reveal>
+            <div class="about__value">
+              <div class="about__value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v5c0 5 4 9.3 9 10.3C17 21.3 21 17 21 12V7z"/></svg>
+              </div>
+              <div>
+                <strong>Надёжность</strong>
+                <p>Безупречное исполнение обязательств</p>
+              </div>
+            </div>
+            <div class="about__value">
+              <div class="about__value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <strong>Забота</strong>
+                <p>Сопровождение на всех этапах</p>
+              </div>
+            </div>
+            <div class="about__value">
+              <div class="about__value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+              </div>
+              <div>
+                <strong>Экспертиза</strong>
+                <p>Глубокое знание рынка</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about__visual" data-reveal>
+          <div class="about__img-frame">
+            <img src="bali.png" alt="Luxury travel experience" />
+            <div class="about__img-badge">
+              <span class="about__img-badge-num">7</span>
+              <span class="about__img-badge-text">небо<br />счастья</span>
+            </div>
+          </div>
+          <!-- Dotted pattern -->
+          <div class="about__dots" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== DESTINATIONS ======== -->
+  <section class="destinations" id="destinations">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">Популярные направления</span>
+        <h2 class="section-title">Новые горизонты<br /><em>открыты для вас</em></h2>
+      </div>
+      <div class="destinations__grid">
+        <div class="dest-card dest-card--large" data-reveal>
+          <img src="hero.png" alt="Вьетнам" class="dest-card__img" />
+          <div class="dest-card__overlay"></div>
+          <div class="dest-card__content">
+            <span class="dest-card__tag">Азия</span>
+            <h3 class="dest-card__title">Вьетнам</h3>
+            <p class="dest-card__sub">Нячанг · Ха Лонг · Хойан</p>
+            <div class="dest-card__price">от <strong>650 USD</strong></div>
+            <a href="#contact" class="dest-card__btn">Подробнее →</a>
+          </div>
+        </div>
+        <div class="dest-card" data-reveal>
+          <img src="maldives.png" alt="Мальдивы" class="dest-card__img" />
+          <div class="dest-card__overlay"></div>
+          <div class="dest-card__content">
+            <span class="dest-card__tag">Острова</span>
+            <h3 class="dest-card__title">Мальдивы</h3>
+            <p class="dest-card__sub">Атолл Ари · Северный Мале</p>
+            <div class="dest-card__price">от <strong>1 200 USD</strong></div>
+            <a href="#contact" class="dest-card__btn">Подробнее →</a>
+          </div>
+        </div>
+        <div class="dest-card" data-reveal>
+          <img src="bali.png" alt="Бали" class="dest-card__img" />
+          <div class="dest-card__overlay"></div>
+          <div class="dest-card__content">
+            <span class="dest-card__tag">Азия</span>
+            <h3 class="dest-card__title">Бали</h3>
+            <p class="dest-card__sub">Убуд · Семиньяк · Чангу</p>
+            <div class="dest-card__price">от <strong>800 USD</strong></div>
+            <a href="#contact" class="dest-card__btn">Подробнее →</a>
+          </div>
+        </div>
+        <div class="dest-card dest-card--wide" data-reveal>
+          <img src="dubai.png" alt="Дубай" class="dest-card__img" />
+          <div class="dest-card__overlay"></div>
+          <div class="dest-card__content">
+            <span class="dest-card__tag">ОАЭ</span>
+            <h3 class="dest-card__title">Дубай</h3>
+            <p class="dest-card__sub">Бурдж-Халифа · Пальма Джумейра</p>
+            <div class="dest-card__price">от <strong>950 USD</strong></div>
+            <a href="#contact" class="dest-card__btn">Подробнее →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== TOURS ======== -->
+  <section class="tours" id="tours">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">Горящие предложения</span>
+        <h2 class="section-title">Туры <em>под ключ</em></h2>
+        <p class="section-desc">В стоимость включено всё необходимое — без скрытых расходов</p>
+      </div>
+      <div class="tours__grid">
+
+        <article class="tour-card" data-reveal>
+          <div class="tour-card__header">
+            <img src="hero.png" alt="Вьетнам тур" />
+            <div class="tour-card__badge">Хит продаж</div>
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__meta">
+              <span>🗓 8 дней / 7 ночей</span>
+              <span>✈ Ташкент → Ханой</span>
+            </div>
+            <h3 class="tour-card__title">Вьетнам · Нячанг</h3>
+            <ul class="tour-card__includes">
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Авиаперелёт</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Отель 5★</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Трансферы</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Питание</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Страховка</li>
+            </ul>
+            <div class="tour-card__footer">
+              <div class="tour-card__price">от <strong>650 USD</strong></div>
+              <a href="#contact" class="btn btn--primary btn--sm">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tour-card" data-reveal>
+          <div class="tour-card__header">
+            <img src="maldives.png" alt="Мальдивы тур" />
+            <div class="tour-card__badge tour-card__badge--gold">Премиум</div>
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__meta">
+              <span>🗓 10 дней / 9 ночей</span>
+              <span>✈ Ташкент → Мале</span>
+            </div>
+            <h3 class="tour-card__title">Мальдивы · Оверватер</h3>
+            <ul class="tour-card__includes">
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Авиаперелёт</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Вилла на воде</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Трансферы + катер</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Full Board</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Страховка</li>
+            </ul>
+            <div class="tour-card__footer">
+              <div class="tour-card__price">от <strong>1 200 USD</strong></div>
+              <a href="#contact" class="btn btn--primary btn--sm">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tour-card" data-reveal>
+          <div class="tour-card__header">
+            <img src="dubai.png" alt="Дубай тур" />
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__meta">
+              <span>🗓 7 дней / 6 ночей</span>
+              <span>✈ Ташкент → Дубай</span>
+            </div>
+            <h3 class="tour-card__title">Дубай · Люкс</h3>
+            <ul class="tour-card__includes">
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Авиаперелёт</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Отель на Пальме</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Трансферы</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Завтраки</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Страховка</li>
+            </ul>
+            <div class="tour-card__footer">
+              <div class="tour-card__price">от <strong>950 USD</strong></div>
+              <a href="#contact" class="btn btn--primary btn--sm">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== WHY US ======== -->
+  <section class="why" id="why">
+    <div class="why__bg-pattern" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-header section-header--light" data-reveal>
+        <span class="section-tag section-tag--light">Почему Seven Heavens</span>
+        <h2 class="section-title section-title--light">Мы делаем всё,<br /><em>чтобы вы отдыхали</em></h2>
+      </div>
+      <div class="why__grid">
+        <div class="why__card" data-reveal>
+          <div class="why__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="24" cy="24" r="20"/>
+              <path d="M24 12v12l8 4"/>
+            </svg>
+          </div>
+          <h3>Поддержка 24/7</h3>
+          <p>Мы на связи в любое время — до, во время и после поездки. Никаких срывов без нашей помощи.</p>
+        </div>
+        <div class="why__card" data-reveal>
+          <div class="why__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6 24L18 36L42 12"/>
+            </svg>
+          </div>
+          <h3>Прозрачные цены</h3>
+          <p>Никаких скрытых платежей. Цена — это цена. Вы знаете за что платите ещё до бронирования.</p>
+        </div>
+        <div class="why__card" data-reveal>
+          <div class="why__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M24 4L4 14v10c0 12 8.5 22 20 24 11.5-2 20-12 20-24V14z"/>
+            </svg>
+          </div>
+          <h3>Безопасность</h3>
+          <p>Медицинская страховка, проверенные отели и партнёры. Ваша безопасность — наш приоритет.</p>
+        </div>
+        <div class="why__card" data-reveal>
+          <div class="why__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="24" cy="16" r="8"/>
+              <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16"/>
+            </svg>
+          </div>
+          <h3>Индивидуальный подход</h3>
+          <p>Каждый тур адаптируется под ваши запросы. Семья, пара или соло — мы учтём всё.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== TESTIMONIALS ======== -->
+  <section class="reviews section--live-bg" id="reviews">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">Отзывы клиентов</span>
+        <h2 class="section-title">Живые фото<br /><em>от наших путешественников</em></h2>
+      </div>
+      <div class="reviews__grid" data-reveal>
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Организовали тур на Мальдивы за 3 дня. Всё было идеально — от трансфера до ужина на закате. Обязательно вернёмся!"</p>
+          <div class="review-card__author">
+            <div class="review-card__avatar">Ш</div>
+            <div>
+              <strong>Шахло М.</strong>
+              <span>Ташкент · Мальдивы</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Летели с детьми во Вьетнам. Всё было организовано безупречно. Дети в восторге, взрослые отдохнули по-настоящему."</p>
+          <div class="review-card__author">
+            <div class="review-card__avatar">А</div>
+            <div>
+              <strong>Акбар Р.</strong>
+              <span>Ташкент · Вьетнам</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Дубай превзошёл все ожидания. Seven Heavens подобрали отель прямо на Пальме — вид был потрясающий. Сервис высший класс."</p>
+          <div class="review-card__author">
+            <div class="review-card__avatar">Н</div>
+            <div>
+              <strong>Нилуфар К.</strong>
+              <span>Ташкент · Дубай</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CTA BANNER ======== -->
+  <section class="cta-banner" data-reveal>
+    <div class="cta-banner__bg">
+      <img src="hero.png" alt="" aria-hidden="true" />
+      <div class="cta-banner__overlay"></div>
+    </div>
+    <div class="cta-banner__content">
+      <div class="hero__tagline">Travel</div>
+      <h2 class="cta-banner__title">Готовы к<br /><em>своей мечте?</em></h2>
+      <p>Оставьте заявку — и мы возьмём на себя всё остальное</p>
+      <a href="#contact" class="btn btn--white">Начать планирование</a>
+    </div>
+  </section>
+
+  <!-- ======== CONTACT ======== -->
+  <section class="contact section--live-bg" id="contact">
+    <!-- Contact container -->
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__info" data-reveal>
+          <span class="section-tag">Связь с нами</span>
+          <h2 class="section-title">Ваш тур <em>начинается<br />здесь</em></h2>
+          <p>Оставьте заявку или свяжитесь напрямую — мы ответим в течение нескольких минут.</p>
+          <div class="contact__details">
+            <a href="tel:+998909990009" class="contact__item">
+              <div class="contact__item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+              </div>
+              <div>
+                <span>Телефон</span>
+                <strong>+998 (90) 999-00-09</strong>
+              </div>
+            </a>
+            <a href="https://instagram.com/seven.heavens.uz" class="contact__item" target="_blank">
+              <div class="contact__item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+              </div>
+              <div>
+                <span>Instagram</span>
+                <strong>seven.heavens.uz</strong>
+              </div>
+            </a>
+            <div class="contact__item">
+              <div class="contact__item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <span>Адрес</span>
+                <strong>Ташкент, Узбекистан</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact__form-wrap" data-reveal>
+          <form class="contact__form" id="contactForm" novalidate>
+            <h3>Оставить заявку</h3>
+            <div class="form-group">
+              <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+              <label for="name">Ваше имя</label>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="phone" name="phone" placeholder="+998 __ ___ __ __" required />
+              <label for="phone">Телефон</label>
+            </div>
+            <div class="form-group">
+              <select id="direction" name="direction">
+                <option value="" disabled selected>Направление</option>
+                <option>Вьетнам</option>
+                <option>Мальдивы</option>
+                <option>Бали</option>
+                <option>Дубай</option>
+                <option>Другое</option>
+              </select>
+              <label for="direction">Направление</label>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" placeholder="Пожелания (даты, количество человек...)" rows="3"></textarea>
+              <label for="message">Пожелания</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
+              Отправить заявку
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo-wrap">
+            <img src="logo.png" alt="Seven Heavens Travel" style="height:50px; width:auto; filter:brightness(0) invert(1); display:block; margin-bottom:20px;" />
+          </div>
+
+          <p>Туристическое агентство премиального сервиса. Организация путешествий под ключ.</p>
+          <p class="footer__slogan"><em>«Мир ждёт тебя»</em></p>
+        </div>
+
+        <div class="footer__links">
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#destinations">Направления</a></li>
+            <li><a href="#tours">Туры</a></li>
+            <li><a href="#contact">Связаться</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Направления</h4>
+          <ul>
+            <li><a href="#contact">Вьетнам</a></li>
+            <li><a href="#contact">Мальдивы</a></li>
+            <li><a href="#contact">Бали</a></li>
+            <li><a href="#contact">Дубай</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Контакты</h4>
+          <p><a href="tel:+998909990009">+998 (90) 999-00-09</a></p>
+          <p><a href="https://instagram.com/seven.heavens.uz" target="_blank">@seven.heavens.uz</a></p>
+          <div class="footer__socials">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://t.me/sevenheavens" target="_blank" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 Seven Heavens Travel. Все права защищены.</p>
+        <p>Ташкент, Узбекистан</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Success Toast -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
