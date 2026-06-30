@@ -61,6 +61,12 @@ html, body {
   position: relative;
 }
 
+.site-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
 body {
   font-family: var(--font-sans);
   color: var(--navy);
