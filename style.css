@@ -156,6 +156,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   background: transparent;
   color: var(--white);
   border-color: rgba(255,255,255,0.5);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 .btn--ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
@@ -182,8 +183,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 }
 .nav.scrolled {
   background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   padding: 12px 0;
   box-shadow: 0 1px 0 rgba(25,31,43,0.06), 0 8px 32px rgba(25,31,43,0.08);
 }
@@ -870,8 +871,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 }
 .review-card {
   background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(147,164,194,0.18);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -1088,6 +1089,13 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 24px;
+}
+.footer__logo-img {
+  height: 50px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  display: block;
   margin-bottom: 20px;
 }
 .footer__logo-text {
@@ -1278,6 +1286,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
     position: absolute;
     top: 100%; left: 0; right: 0;
     background: rgba(255,255,255,0.98);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     padding: 24px;
     gap: 16px;
