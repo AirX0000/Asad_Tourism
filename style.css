@@ -1094,11 +1094,11 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   margin-bottom: 24px;
 }
 .footer__logo-img {
-  height: 50px;
+  height: 110px;
   width: auto;
   filter: brightness(0) invert(1);
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .footer__logo-text {
   display: flex;
