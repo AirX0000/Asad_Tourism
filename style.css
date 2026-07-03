@@ -43,7 +43,7 @@ html { scroll-behavior: smooth; font-size: 16px; }
 
   --font-serif: 'Berold', 'Bodoni Moda', Georgia, serif;
   --font-sans:  'Inter', system-ui, sans-serif;
-  --font-script:'Sloop Script', 'Great Vibes', cursive;
+  --font-script: 'Bodoni Moda', Georgia, serif;
 
   --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in:   cubic-bezier(0.64, 0, 0.78, 0);
@@ -343,6 +343,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .hero__tagline {
   font-family: var(--font-script);
   font-size: 2rem;
+  font-style: italic;
   color: var(--mist);
   margin-bottom: 16px;
   opacity: 0;
@@ -543,8 +544,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   color: var(--steel);
 }
 .about__value-icon svg { width: 18px; height: 18px; }
-.about__value strong { display: block; font-weight: 500; color: var(--navy); }
-.about__value p { font-size: 0.88rem; color: var(--warm); }
+.about__value strong { display: block; font-weight: 500; color: var(--navy); font-size: 1.1rem; margin-bottom: 4px; }
+.about__value p { font-size: 0.95rem; color: var(--navy-80); line-height: 1.5; }
 
 .about__visual { position: relative; }
 .about__img-frame {
@@ -944,6 +945,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .cta-banner__content .hero__tagline {
   font-family: var(--font-script);
   font-size: 1.8rem;
+  font-style: italic;
   color: var(--mist);
   opacity: 1;
   transform: none;
@@ -1114,6 +1116,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .footer__logo-sub {
   font-family: var(--font-script);
   font-size: 0.85rem;
+  font-style: italic;
   color: var(--mist);
 }
 .footer__brand p {
@@ -1127,6 +1130,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   color: var(--mist) !important;
   font-family: var(--font-script);
   font-size: 1.1rem !important;
+  font-style: italic;
 }
 .footer__links h4 {
   font-family: var(--font-serif);
