@@ -1,6 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import { getFirestore, collection, addDoc, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
-
+// Firebase initialization (using compat style to support file:// protocol)
 const firebaseConfig = {
   apiKey: "AIzaSyCZsGCEQP3vwTHModwLYAPmLR8l56WqrWo",
   authDomain: "seven-heavens-c4665.firebaseapp.com",
@@ -10,8 +8,8 @@ const firebaseConfig = {
   appId: "1:537012112552:web:3dffb09bd216642101c69d",
   measurementId: "G-YX310SXCXB"
 };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 /* ============================================================
    SEVEN HEAVENS TRAVEL — JavaScript
@@ -210,9 +208,7 @@ const db = getFirestore(app);
     btn.style.opacity = '0.8';
 
     try {
-      const leadsRef = collection(db, "leads");
-      const q = query(leadsRef, where("phone", "==", phone));
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await db.collection("leads").where("phone", "==", phone).get();
 
       if (!querySnapshot.empty) {
         // Лид с таким номером уже существует
@@ -220,12 +216,12 @@ const db = getFirestore(app);
         const existingLeadDoc = querySnapshot.docs[0];
         const existingData = existingLeadDoc.data();
         
-        const newDesc = existingData.desc 
+        const newDesc = (existingData.desc || '') 
           + "\n\n--- НОВОЕ ОБРАЩЕНИЕ С ЛЕНДИНГА ---\n"
           + desc + "\n"
           + "Дата: " + new Date().toLocaleString("ru-RU");
 
-        await updateDoc(doc(db, "leads", existingLeadDoc.id), {
+        await db.collection("leads").doc(existingLeadDoc.id).update({
           desc: newDesc,
           stage: 'kanban-new', // возвращаем в "Новые", чтобы менеджер увидел
           tag: 'Повторный',
@@ -233,7 +229,7 @@ const db = getFirestore(app);
         });
       } else {
         // Создаем новый лид
-        await addDoc(leadsRef, {
+        await db.collection("leads").add({
           name: name,
           phone: phone,
           budget: 0,
