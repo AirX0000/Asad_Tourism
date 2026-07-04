@@ -282,6 +282,120 @@ const db = firebase.firestore();
     });
   });
 
+  /* ─── FETCH TOURS FROM FIREBASE ─────────────────────────── */
+  const fetchTours = async () => {
+    const gridContainer = document.getElementById('tours-grid-container');
+    if (!gridContainer) return;
+
+    try {
+      const querySnapshot = await db.collection("tours").get();
+      if (querySnapshot.empty) {
+        gridContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Туров пока нет, но скоро появятся!</div>';
+        return;
+      }
+
+      let html = '';
+      querySnapshot.forEach(doc => {
+        const tour = doc.data();
+        
+        let badgeHtml = '';
+        if (tour.badge) {
+          const badgeClass = tour.badgeColor === 'gold' ? 'tour-card__badge--gold' : '';
+          badgeHtml = `<div class="tour-card__badge ${badgeClass}">${tour.badgeText || ''}</div>`;
+        }
+        
+        let includesHtml = '';
+        if (tour.includes && Array.isArray(tour.includes)) {
+          includesHtml = tour.includes.map(inc => `<li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>${inc.trim()}</li>`).join('');
+        }
+        
+        html += `
+        <article class="tour-card" data-reveal>
+          <div class="tour-card__header">
+            <img src="${tour.image || ''}" alt="${tour.title}" />
+            ${badgeHtml}
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__meta">
+              <span>🗓 ${tour.duration || ''}</span>
+              <span>✈ ${tour.flight || ''}</span>
+            </div>
+            <h3 class="tour-card__title">${tour.title || ''}</h3>
+            <ul class="tour-card__includes">
+              ${includesHtml}
+            </ul>
+            <div class="tour-card__footer">
+              <div class="tour-card__price">от <strong>${tour.price || 0} USD</strong></div>
+              <button class="btn btn--primary btn--sm smart-contact-btn" data-destination="${tour.title}">Забронировать</button>
+            </div>
+          </div>
+        </article>`;
+      });
+
+      gridContainer.innerHTML = html;
+
+      // Re-apply hover tilt to dynamically created cards
+      const newCards = gridContainer.querySelectorAll('.tour-card');
+      newCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rotateX = ((y - cy) / cy) * -4;
+          const rotateY = ((x - cx) / cx) * 4;
+          card.style.transform = \`perspective(800px) rotateX(\${rotateX}deg) rotateY(\${rotateY}deg) translateY(-6px)\`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+
+      // Re-apply smart contact buttons logic
+      gridContainer.querySelectorAll('.smart-contact-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const dest = btn.dataset.destination;
+          const form = document.getElementById('contactForm');
+          if (form) {
+            if (dest && form.direction) {
+              const options = Array.from(form.direction.options);
+              const match = options.find(o => o.value === dest || o.text === dest);
+              if (match) form.direction.value = match.value;
+            }
+          }
+          // Scroll to form
+          const target = document.querySelector('#contact');
+          if (target) {
+            const top = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        });
+      });
+      
+      // Re-observe for scroll reveal
+      const revealEls = gridContainer.querySelectorAll('[data-reveal]');
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              revealObs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      revealEls.forEach(el => revealObs.observe(el));
+
+    } catch (error) {
+      console.error("Error loading tours:", error);
+      gridContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: #e05c5c; width: 100%;">Не удалось загрузить туры.</div>';
+    }
+  };
+
+  fetchTours();
+
   /* ─── ADD SHAKE AND SPIN KEYFRAMES dynamically ────────────────────── */
   const style = document.createElement('style');
   style.textContent = `
