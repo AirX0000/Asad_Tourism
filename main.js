@@ -424,7 +424,9 @@ const db = firebase.firestore();
           const cx = rect.width / 2;
           const cy = rect.height / 2;
           const rotateX = ((y - cy) / cy) * -4;
+          const rotateY = ((x - cx) / cx) * 4;
           card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        });
         card.addEventListener('mouseleave', () => { card.style.transform = ''; });
       });
     } catch(e) {
