@@ -208,39 +208,18 @@ const db = firebase.firestore();
     btn.style.opacity = '0.8';
 
     try {
-      const querySnapshot = await db.collection("leads").where("phone", "==", phone).get();
-
-      if (!querySnapshot.empty) {
-        // Лид с таким номером уже существует
-        // Обновляем существующий лид, чтобы он остался у того же менеджера
-        const existingLeadDoc = querySnapshot.docs[0];
-        const existingData = existingLeadDoc.data();
-        
-        const newDesc = (existingData.desc || '') 
-          + "\n\n--- НОВОЕ ОБРАЩЕНИЕ С ЛЕНДИНГА ---\n"
-          + desc + "\n"
-          + "Дата: " + new Date().toLocaleString("ru-RU");
-
-        await db.collection("leads").doc(existingLeadDoc.id).update({
-          desc: newDesc,
-          stage: 'kanban-new', // возвращаем в "Новые", чтобы менеджер увидел
-          tag: 'Повторный',
-          updatedAt: new Date().toISOString()
-        });
-      } else {
-        // Создаем новый лид
-        await db.collection("leads").add({
-          name: name,
-          phone: phone,
-          budget: 0,
-          desc: desc,
-          stage: 'kanban-new',
-          tag: 'Лендинг',
-          source: 'Сайт Seven Heavens',
-          assignee: 'm1',
-          createdAt: new Date().toISOString()
-        });
-      }
+      // Создаем новый лид напрямую (без чтения базы для дублей, так как чтение закрыто правилами безопасности)
+      await db.collection("leads").add({
+        name: name,
+        phone: phone,
+        budget: 0,
+        desc: desc,
+        stage: 'kanban-new',
+        tag: 'Лендинг',
+        source: 'Сайт Seven Heavens',
+        assignee: 'm1',
+        createdAt: new Date().toISOString()
+      });
 
       form.reset();
       btn.innerHTML = '<svg style="margin-right: 8px; width: 20px; height: 20px; display: inline-block;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Заявка отправлена!';
@@ -345,16 +324,23 @@ const db = firebase.firestore();
           const cy = rect.height / 2;
           const rotateX = ((y - cy) / cy) * -4;
           const rotateY = ((x - cx) / cx) * 4;
-          card.style.transform = \`perspective(800px) rotateX(\${rotateX}deg) rotateY(\${rotateY}deg) translateY(-6px)\`;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
         });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
       });
 
       // Re-apply smart contact buttons logic
-      gridContainer.querySelectorAll('.smart-contact-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+      gridContainer.querySelectorAll('.smart-contact-btn').forEach((btn, index) => {
+        // Find corresponding doc id
+        const docId = querySnapshot.docs[index].id;
+        btn.addEventListener('click', async () => {
+          // Track click in analytics
+          try {
+            await db.collection("tours").doc(docId).update({
+              clicks: firebase.firestore.FieldValue.increment(1)
+            });
+          } catch(e) { console.warn("Analytics tracking error", e); }
+
           const dest = btn.dataset.destination;
           const form = document.getElementById('contactForm');
           if (form) {
@@ -395,6 +381,91 @@ const db = firebase.firestore();
   };
 
   fetchTours();
+
+  /* ─── FETCH DESTINATIONS ─────────────────────────── */
+  const fetchDestinations = async () => {
+    const grid = document.getElementById('destinations-grid-container');
+    if (!grid) return;
+    try {
+      const snap = await db.collection('destinations').get();
+      if (snap.empty) {
+        grid.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Направления пока не добавлены.</div>';
+        return;
+      }
+      let html = '';
+      let idx = 0;
+      snap.forEach(doc => {
+        const d = doc.data();
+        let classes = 'dest-card';
+        if (idx === 0) classes += ' dest-card--large';
+        if (idx === 3) classes += ' dest-card--wide';
+        html += `
+        <div class="${classes}" data-reveal>
+          <img src="${d.image || ''}" alt="${d.title}" class="dest-card__img" />
+          <div class="dest-card__overlay"></div>
+          <div class="dest-card__content">
+            <span class="dest-card__tag">${d.tag || 'Популярно'}</span>
+            <h3 class="dest-card__title">${d.title || ''}</h3>
+            <p class="dest-card__sub">${d.subtitle || ''}</p>
+            <div class="dest-card__price">от <strong>${d.price || 0} USD</strong></div>
+            <a href="#contact" class="dest-card__btn">Подробнее →</a>
+          </div>
+        </div>`;
+        idx++;
+      });
+      grid.innerHTML = html;
+      
+      const newCards = grid.querySelectorAll('.dest-card');
+      newCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rotateX = ((y - cy) / cy) * -4;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+    } catch(e) {
+      console.error(e);
+    }
+  };
+  fetchDestinations();
+
+  /* ─── FETCH REVIEWS ─────────────────────────── */
+  const fetchReviews = async () => {
+    const grid = document.getElementById('reviews-grid-container');
+    if (!grid) return;
+    try {
+      const snap = await db.collection('reviews').get();
+      if (snap.empty) {
+        grid.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Отзывов пока нет.</div>';
+        return;
+      }
+      let html = '';
+      snap.forEach(doc => {
+        const r = doc.data();
+        const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+        html += `
+        <div class="review-card">
+          <div class="review-card__stars">${stars}</div>
+          <p class="review-card__text">"${r.text || ''}"</p>
+          <div class="review-card__author">
+            <div class="review-card__avatar">${(r.author || 'Г')[0].toUpperCase()}</div>
+            <div>
+              <strong>${r.author || ''}</strong>
+              <span>${r.location || ''}</span>
+            </div>
+          </div>
+        </div>`;
+      });
+      grid.innerHTML = html;
+    } catch(e) {
+      console.error(e);
+    }
+  };
+  fetchReviews();
 
   /* ─── ADD SHAKE AND SPIN KEYFRAMES dynamically ────────────────────── */
   const style = document.createElement('style');
