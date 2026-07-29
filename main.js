@@ -405,7 +405,7 @@ const db = firebase.firestore();
           <div class="dest-card__overlay"></div>
           <div class="dest-card__content">
             <span class="dest-card__tag">${d.tag || 'Популярно'}</span>
-            <h3 class="dest-card__title">${d.title || ''}</h3>
+            <h3 class="dest-card__title">${d.title || d.name || ''}</h3>
             <p class="dest-card__sub">${d.subtitle || ''}</p>
             <div class="dest-card__price">от <strong>${d.price || 0} USD</strong></div>
             <a href="#contact" class="dest-card__btn">Подробнее →</a>
@@ -428,6 +428,9 @@ const db = firebase.firestore();
           card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
         });
         card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+        if (typeof revealObs !== 'undefined') {
+          revealObs.observe(card);
+        }
       });
     } catch(e) {
       console.error(e);
