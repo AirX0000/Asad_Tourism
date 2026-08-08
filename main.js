@@ -164,6 +164,40 @@ const db = firebase.firestore();
     });
   });
 
+  /* ─── UTM PARAMETERS CAPTURE ────────────────────────────── */
+  function captureUtmParams() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      let hasUtm = false;
+      const utmData = {};
+
+      utmKeys.forEach(key => {
+        const val = params.get(key);
+        if (val) {
+          utmData[key] = val;
+          hasUtm = true;
+        }
+      });
+
+      if (hasUtm) {
+        sessionStorage.setItem('sh_utm_params', JSON.stringify(utmData));
+      }
+    } catch (e) {
+      console.error("UTM Capture error:", e);
+    }
+  }
+  captureUtmParams();
+
+  function getStoredUtmParams() {
+    try {
+      const stored = sessionStorage.getItem('sh_utm_params');
+      return stored ? JSON.parse(stored) : {};
+    } catch(e) {
+      return {};
+    }
+  }
+
   /* ─── CONTACT FORM ───────────────────────────────────────── */
   const form = document.getElementById('contactForm');
   const toast = document.getElementById('toast');
@@ -197,7 +231,25 @@ const db = firebase.firestore();
 
     const direction = form.direction?.value || '';
     const message = form.message?.value.trim() || '';
-    const desc = `[С Сайта] ${direction ? direction + '. ' : ''}${message}`;
+    
+    // UTM parameters processing
+    const utm = getStoredUtmParams();
+    let leadSource = 'Сайт Seven Heavens';
+    if (utm.utm_source) {
+      const srcLower = utm.utm_source.toLowerCase();
+      if (srcLower.includes('insta')) leadSource = 'Instagram (Таргет)';
+      else if (srcLower.includes('fb') || srcLower.includes('facebook')) leadSource = 'Facebook Ads';
+      else if (srcLower.includes('google')) leadSource = 'Google Ads';
+      else if (srcLower.includes('tiktok')) leadSource = 'TikTok Ads';
+      else leadSource = `Сайт (${utm.utm_source})`;
+    }
+
+    let utmInfoStr = '';
+    if (utm.utm_campaign) utmInfoStr += ` | Кампания: ${utm.utm_campaign}`;
+    if (utm.utm_content) utmInfoStr += ` | Креатив: ${utm.utm_content}`;
+    if (utm.utm_medium) utmInfoStr += ` | Метка: ${utm.utm_medium}`;
+
+    const desc = `[С Сайта] ${direction ? direction + '. ' : ''}${message}${utmInfoStr}`;
 
     // Send to Firebase
     btn.disabled = true;
@@ -208,18 +260,31 @@ const db = firebase.firestore();
     btn.style.opacity = '0.8';
 
     try {
-      // Создаем новый лид напрямую (без проверки на дубликаты, так как у неавторизованных пользователей нет прав на чтение базы)
+      // Создаем новый лид в Firestore
       await db.collection("leads").add({
         name: name,
         phone: phone,
         budget: 0,
         desc: desc,
         stage: 'kanban-new',
-        tag: 'Лендинг',
-        source: 'Сайт Seven Heavens',
+        tag: utm.utm_source ? 'Таргет' : 'Лендинг',
+        source: leadSource,
+        utm_source: utm.utm_source || '',
+        utm_medium: utm.utm_medium || '',
+        utm_campaign: utm.utm_campaign || '',
+        utm_content: utm.utm_content || '',
         assignee: 'm1',
         createdAt: new Date().toISOString()
       });
+
+      // Trigger Meta (Facebook) Pixel Lead Event if installed on page
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {
+          content_name: direction || 'Заявка на тур',
+          value: 0,
+          currency: 'USD'
+        });
+      }
 
       form.reset();
       btn.innerHTML = '<svg style="margin-right: 8px; width: 20px; height: 20px; display: inline-block;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Заявка отправлена!';
@@ -452,15 +517,23 @@ const db = firebase.firestore();
       snap.forEach(doc => {
         const r = doc.data();
         const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+        const authorName = r.author || r.name || 'Гость';
+        const photoUrl = r.image || r.photo || r.avatar || r.avatarUrl || '';
+        
+        let avatarHtml = `<div class="review-card__avatar">${authorName[0].toUpperCase()}</div>`;
+        if (photoUrl) {
+          avatarHtml = `<div class="review-card__avatar" style="padding:0; overflow:hidden;"><img src="${photoUrl}" alt="${authorName}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>`;
+        }
+
         html += `
         <div class="review-card">
           <div class="review-card__stars">${stars}</div>
           <p class="review-card__text">"${r.text || ''}"</p>
           <div class="review-card__author">
-            <div class="review-card__avatar">${(r.author || 'Г')[0].toUpperCase()}</div>
+            ${avatarHtml}
             <div>
-              <strong>${r.author || ''}</strong>
-              <span>${r.location || ''}</span>
+              <strong>${authorName}</strong>
+              <span>${r.location || 'Клиент Seven Heavens'}</span>
             </div>
           </div>
         </div>`;
