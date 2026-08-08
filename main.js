@@ -520,16 +520,20 @@ const db = firebase.firestore();
         const authorName = r.author || r.name || 'Гость';
         const photoUrl = r.image || r.photo || r.avatar || r.avatarUrl || '';
         
+        let topPhotoHtml = '';
         let avatarHtml = `<div class="review-card__avatar">${authorName[0].toUpperCase()}</div>`;
+        
         if (photoUrl) {
-          avatarHtml = `<div class="review-card__avatar" style="padding:0; overflow:hidden;"><img src="${photoUrl}" alt="${authorName}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>`;
+          topPhotoHtml = `<div style="width:100%; height:210px; border-radius:12px; overflow:hidden; margin-bottom:16px; box-shadow:0 4px 12px rgba(25,31,43,0.08); border:1px solid rgba(0,0,0,0.05);"><img src="${photoUrl}" alt="${authorName}" style="width:100%; height:100%; object-fit:cover; display:block;"></div>`;
+          avatarHtml = `<div class="review-card__avatar" style="padding:0; overflow:hidden; width:44px; height:44px; border-radius:50%; border:2px solid #E3E4E8;"><img src="${photoUrl}" alt="${authorName}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>`;
         }
 
         html += `
-        <div class="review-card">
+        <div class="review-card flex flex-col">
+          ${topPhotoHtml}
           <div class="review-card__stars">${stars}</div>
           <p class="review-card__text">"${r.text || ''}"</p>
-          <div class="review-card__author">
+          <div class="review-card__author" style="margin-top:auto;">
             ${avatarHtml}
             <div>
               <strong>${authorName}</strong>
