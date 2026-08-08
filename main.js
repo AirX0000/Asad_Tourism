@@ -509,6 +509,7 @@ const db = firebase.firestore();
     if (!grid) return;
     try {
       const snap = await db.collection('reviews').get();
+      grid.classList.add('revealed'); // Ensure container is 100% visible immediately
       if (snap.empty) {
         grid.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Отзывов пока нет.</div>';
         return;
@@ -529,7 +530,7 @@ const db = firebase.firestore();
         }
 
         html += `
-        <div class="review-card flex flex-col">
+        <div class="review-card flex flex-col revealed">
           ${topPhotoHtml}
           <div class="review-card__stars">${stars}</div>
           <p class="review-card__text">"${r.text || ''}"</p>
@@ -545,6 +546,7 @@ const db = firebase.firestore();
       grid.innerHTML = html;
     } catch(e) {
       console.error(e);
+      grid.classList.add('revealed');
     }
   };
   fetchReviews();
