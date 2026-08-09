@@ -107,7 +107,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .section-title--light { color: var(--white); }
 .section-title--light em { color: var(--mist); }
 
-.section-desc { color: var(--warm); font-size: 1.05rem; max-width: 520px; }
+.section-desc { color: var(--warm); font-size: 1.05rem; max-width: 520px; margin: 0 auto; text-align: center; }
 
 .section-header { text-align: center; margin-bottom: 60px; }
 .section-header--light { color: var(--white); }
