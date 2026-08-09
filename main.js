@@ -354,7 +354,7 @@ const db = firebase.firestore();
         }
         
         html += `
-        <article class="tour-card" data-reveal>
+        <article class="tour-card revealed" data-reveal>
           <div class="tour-card__header">
             <img src="${tour.image || ''}" alt="${tour.title}" />
             ${badgeHtml}
@@ -381,6 +381,7 @@ const db = firebase.firestore();
       // Re-apply hover tilt to dynamically created cards
       const newCards = gridContainer.querySelectorAll('.tour-card');
       newCards.forEach(card => {
+        card.classList.add('revealed');
         card.addEventListener('mousemove', e => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -426,18 +427,7 @@ const db = firebase.firestore();
       
       // Re-observe for scroll reveal
       const revealEls = gridContainer.querySelectorAll('[data-reveal]');
-      const revealObs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
-              revealObs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-      );
-      revealEls.forEach(el => revealObs.observe(el));
+      revealEls.forEach(el => el.classList.add('revealed'));
 
     } catch (error) {
       console.error("Error loading tours:", error);
@@ -461,7 +451,7 @@ const db = firebase.firestore();
       let idx = 0;
       snap.forEach(doc => {
         const d = doc.data();
-        let classes = 'dest-card';
+        let classes = 'dest-card revealed';
         if (idx === 0) classes += ' dest-card--large';
         if (idx === 3) classes += ' dest-card--wide';
         html += `
@@ -482,6 +472,7 @@ const db = firebase.firestore();
       
       const newCards = grid.querySelectorAll('.dest-card');
       newCards.forEach(card => {
+        card.classList.add('revealed');
         card.addEventListener('mousemove', e => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -493,9 +484,6 @@ const db = firebase.firestore();
           card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
         });
         card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-        if (typeof revealObs !== 'undefined') {
-          revealObs.observe(card);
-        }
       });
     } catch(e) {
       console.error(e);
