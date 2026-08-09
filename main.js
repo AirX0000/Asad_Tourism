@@ -417,7 +417,7 @@ const db = firebase.firestore();
             }
           }
           // Scroll to form
-          const target = document.querySelector('#contact');
+          const target = document.querySelector('#contact-form') || document.querySelector('#contact');
           if (target) {
             const top = target.getBoundingClientRect().top + window.scrollY - 80;
             window.scrollTo({ top, behavior: 'smooth' });
