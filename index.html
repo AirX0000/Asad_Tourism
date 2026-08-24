@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
   <link rel="icon" type="image/png" href="favicon.png?v=1">
 </head>
 
@@ -31,7 +31,7 @@
           <li><a href="#destinations" class="nav__link">Направления</a></li>
           <li><a href="#tours" class="nav__link">Туры</a></li>
           <li><a href="#why" class="nav__link">Почему мы</a></li>
-          <li><a href="#requisites" class="nav__link">Реквизиты</a></li>
+          <li><a href="#requisites" class="nav__link open-req-btn">Реквизиты</a></li>
           <li><a href="#contact" class="nav__link nav__link--cta">Связаться</a></li>
         </ul>
         <button class="nav__burger" id="nav-burger" aria-label="Меню">
@@ -485,112 +485,6 @@
       </div>
     </section>
 
-    <!-- ======== REQUISITES & LICENSE (YURIDIK MA'LUMOTLAR) ======== -->
-    <section class="requisites" id="requisites">
-      <div class="container">
-        <div class="section-header" data-reveal>
-          <span class="section-tag">Официальные данные</span>
-          <h2 class="section-title">Реквизиты и информация<br /><em>о компании</em></h2>
-          <p class="section-desc">
-            Регистрационные сведения, лицензирование и контакты ООО «Seven Heavens Travel»
-          </p>
-        </div>
-
-        <div class="requisites__grid">
-          <!-- Card 1: Legal Entity & Director -->
-          <div class="requisite-card" data-reveal>
-            <div class="requisite-card__header">
-              <div class="requisite-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 21h18M3 7v14M21 7v14M6 11h12M6 15h12M9 7V3h6v4" />
-                </svg>
-              </div>
-              <h3>Компания и Руководство<br /><span>Tashkilot va Rahbariyat</span></h3>
-            </div>
-            <div class="requisite-card__list">
-              <div class="requisite-card__row">
-                <span class="requisite-label">Наименование / To‘liq nomi:</span>
-                <strong class="requisite-val">ООО «Seven Heavens Travel» («SEVEN HEAVENS TRAVEL» MCHJ)</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">Директор / Rahbar:</span>
-                <strong class="requisite-val">Тойиров Асадбек Хамзаевич (Toyirov Asadbek Xamzayevich)</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">ИНН / STIR:</span>
-                <strong class="requisite-val">313 091 434</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">ОКЭД / IFUT:</span>
-                <strong class="requisite-val">79110 — Деятельность туристических агентств (Turagentliklar faoliyati)</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: Location & Work Schedule -->
-          <div class="requisite-card" data-reveal>
-            <div class="requisite-card__header">
-              <div class="requisite-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </div>
-              <h3>Адрес и График работы<br /><span>Manzil va Ish rejimi</span></h3>
-            </div>
-            <div class="requisite-card__list">
-              <div class="requisite-card__row">
-                <span class="requisite-label">Адрес / Manzil:</span>
-                <strong class="requisite-val">100015, Узбекистан, г. Ташкент, Мирабадский р-н, ул. Мироншох 3-й проезд, 16</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">График работы / Ish rejimi:</span>
-                <strong class="requisite-val">ПН – СБ: 10:00 – 22:00<br /><span style="color:var(--warm);font-weight:400;">Воскресенье — выходной (Yakshanba: dam olish)</span></strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">Телефон / Telefon:</span>
-                <strong class="requisite-val"><a href="tel:+998888987778">+998 (88) 898-77-78</a></strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">Email / Elektron pochta:</span>
-                <strong class="requisite-val"><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3: Licensing & Banking -->
-          <div class="requisite-card" data-reveal>
-            <div class="requisite-card__header">
-              <div class="requisite-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              </div>
-              <h3>Лицензирование и Банк<br /><span>Litsenziya va Bank</span></h3>
-            </div>
-            <div class="requisite-card__list">
-              <div class="requisite-card__row">
-                <span class="requisite-label">Вид деятельности / Faoliyat turi:</span>
-                <strong class="requisite-val">Турагентская деятельность (выездной туризм) / Turagentlik faoliyati</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">Реестр / Litsenziya portali:</span>
-                <strong class="requisite-val">Портал «Litsenziya» AT (Заявка № 3149418)</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">Банк / Xizmat ko‘rsatuvchi bank:</span>
-                <strong class="requisite-val">АКБ «Ипак Йули» (AKB «Ipak Yo'li»)</strong>
-              </div>
-              <div class="requisite-card__row">
-                <span class="requisite-label">МФО и Р/с / MFO va H/r:</span>
-                <strong class="requisite-val">МФО: 00444 | Р/с: 20208000707481626001</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ======== FOOTER ======== -->
     <footer class="footer">
       <div class="container">
@@ -600,7 +494,7 @@
               <img src="logo.png" alt="Seven Heavens Travel" class="footer__logo-img" />
             </div>
 
-            <p>«SEVEN HEAVENS TRAVEL» MCHJ — Turizm sohasida yuqori sifatli xizmat ko‘rsatuvchi rasmiy turagentlik.</p>
+            <p>«SEVEN HEAVENS TRAVEL» MCHJ — Туристическое агентство премиального сервиса.</p>
             <p class="footer__slogan"><em>«Мир ждёт вас»</em></p>
           </div>
 
@@ -611,7 +505,7 @@
               <li><a href="#destinations">Направления</a></li>
               <li><a href="#tours">Туры</a></li>
               <li><a href="#why">Почему мы</a></li>
-              <li><a href="#requisites">Реквизиты и Лицензия</a></li>
+              <li><a href="#requisites" class="open-req-btn">Реквизиты</a></li>
               <li><a href="#contact">Связаться</a></li>
             </ul>
           </div>
@@ -620,7 +514,7 @@
             <h4>Контакты и График</h4>
             <p><a href="tel:+998888987778">+998 (88) 898-77-78</a></p>
             <p><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></p>
-            <p class="footer__schedule"><strong>Ish tartibi:</strong> Dsh–Shnb 10:00–22:00 (Yakshanba — dam olish)</p>
+            <p class="footer__schedule"><strong>График работы:</strong> ПН–СБ: 10:00 – 22:00 (ВС — выходной)</p>
             <div class="footer__socials">
               <a href="https://www.instagram.com/sevenheavens.uz?igsh=c3M0OXo2cDFqZHRy&utm_source=qr" target="_blank"
                 rel="noopener" aria-label="Instagram">
@@ -639,20 +533,123 @@
           </div>
 
           <div class="footer__legal">
-            <h4>Yuridik ma'lumotlar</h4>
-            <p class="footer__legal-item"><strong>«SEVEN HEAVENS TRAVEL» MCHJ</strong></p>
-            <p class="footer__legal-item">STIR: 313 091 434 | IFUT: 79110</p>
-            <p class="footer__legal-item">Rahbar: Toyirov Asadbek Xamzayevich</p>
-            <p class="footer__legal-item">Manzil: Toshkent sh., Mirobod t., Mironshoh 3-tor ko‘chasi, 16-uy</p>
-            <p class="footer__legal-item"><a href="#requisites" class="footer__legal-link">Barcha rekvizitlarni ko‘rish →</a></p>
+            <h4>Реквизиты и Данные</h4>
+            <p class="footer__legal-item"><strong>ООО «Seven Heavens Travel»</strong></p>
+            <p class="footer__legal-item">ИНН: 313 091 434 | ОКЭД: 79110</p>
+            <p class="footer__legal-item">Директор: Тойиров Асадбек Хамзаевич</p>
+            <p class="footer__legal-item">Ташкент, Мирабадский р-н, ул. Мироншох 3-й проезд, 16</p>
+            <p class="footer__legal-item"><a href="#requisites" class="footer__legal-link open-req-btn">Смотреть все реквизиты →</a></p>
           </div>
         </div>
         <div class="footer__bottom">
-          <p>© 2026 «SEVEN HEAVENS TRAVEL» MCHJ. Barcha huquqlar himoyalangan / Все права защищены.</p>
-          <p>O‘zbekiston, Toshkent shahri</p>
+          <p>© 2026 ООО «Seven Heavens Travel». Все права защищены.</p>
+          <p>Ташкент, Узбекистан</p>
         </div>
       </div>
     </footer>
+
+    <!-- ======== REQUISITES MODAL ======== -->
+    <div class="req-modal" id="requisitesModal" aria-hidden="true" role="dialog" aria-labelledby="reqModalTitle">
+      <div class="req-modal__overlay" id="reqModalOverlay"></div>
+      <div class="req-modal__dialog">
+        <div class="req-modal__header">
+          <div class="req-modal__title-wrap">
+            <span class="section-tag" style="margin-bottom:4px;">Seven Heavens Travel</span>
+            <h3 id="reqModalTitle">Реквизиты и сведения о компании</h3>
+            <p class="req-modal__subtitle">Официальная информация и лицензирование</p>
+          </div>
+          <button class="req-modal__close" id="reqModalClose" aria-label="Закрыть">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="req-modal__body">
+          <div class="req-modal__grid">
+            
+            <div class="req-modal__card">
+              <div class="req-modal__card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 7v14M21 7v14M6 11h12M6 15h12M9 7V3h6v4"/></svg>
+                <span>Организация и Руководство</span>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">Юридическое наименование:</span>
+                <strong>ООО «Seven Heavens Travel»<br><small style="font-weight:400;color:var(--warm);">(«SEVEN HEAVENS TRAVEL» MCHJ)</small></strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">Директор / Руководитель:</span>
+                <strong>Тойиров Асадбек Хамзаевич</strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">ИНН / STIR:</span>
+                <strong>313 091 434</strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">ОКЭД / IFUT:</span>
+                <strong>79110 (Деятельность туристических агентств)</strong>
+              </div>
+            </div>
+
+            <div class="req-modal__card">
+              <div class="req-modal__card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Адрес и График работы</span>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">Почтовый и юридический адрес:</span>
+                <strong>100015, Узбекистан, г. Ташкент, Мирабадский р-н, ул. Мироншох 3-й проезд, 16</strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">График работы:</span>
+                <strong>ПН – СБ: 10:00 – 22:00 <span style="font-weight:400;color:var(--warm);">(ВС: выходной)</span></strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">Телефон:</span>
+                <strong><a href="tel:+998888987778">+998 (88) 898-77-78</a></strong>
+              </div>
+              <div class="req-modal__item">
+                <span class="req-modal__lbl">Email:</span>
+                <strong><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></strong>
+              </div>
+            </div>
+
+            <div class="req-modal__card req-modal__card--wide">
+              <div class="req-modal__card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span>Банковские реквизиты и Лицензирование</span>
+              </div>
+              <div class="req-modal__columns">
+                <div class="req-modal__item">
+                  <span class="req-modal__lbl">Вид деятельности:</span>
+                  <strong>Турагентская деятельность (выездной туризм)</strong>
+                </div>
+                <div class="req-modal__item">
+                  <span class="req-modal__lbl">Реестр / Лицензирование:</span>
+                  <strong>Портал «Litsenziya» AT (Заявка № 3149418)</strong>
+                </div>
+                <div class="req-modal__item">
+                  <span class="req-modal__lbl">Обслуживающий банк:</span>
+                  <strong>АКБ «Ипак Йули»</strong>
+                </div>
+                <div class="req-modal__item">
+                  <span class="req-modal__lbl">МФО / Расчетный счет:</span>
+                  <strong>МФО: 00444 | Р/с: 20208000707481626001</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="req-modal__footer">
+          <button class="btn btn--primary" id="reqCopyBtn" type="button" style="padding: 10px 24px; font-size: 0.85rem;">
+            Скопировать реквизиты
+          </button>
+          <button class="btn btn--ghost" id="reqCloseBtn" type="button" style="padding: 10px 24px; font-size: 0.85rem; color:var(--navy); border-color:var(--silver);">
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Success Toast -->
     <div class="toast" id="toast">
@@ -665,7 +662,7 @@
   </div>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-  <script src="main.js?v=1786266300"></script>
+  <script src="main.js?v=1786266400"></script>
 </body>
 
 </html>

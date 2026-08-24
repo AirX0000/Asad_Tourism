@@ -688,4 +688,72 @@ async function fetchFirestoreREST(collectionName) {
     { threshold: 0.4 }
   );
   sections.forEach(s => activeObs.observe(s));
+
+  /* ─── REQUISITES MODAL POPUP ────────────────────────────── */
+  const reqModal = document.getElementById('requisitesModal');
+  const reqModalClose = document.getElementById('reqModalClose');
+  const reqModalOverlay = document.getElementById('reqModalOverlay');
+  const reqCloseBtn = document.getElementById('reqCloseBtn');
+  const reqCopyBtn = document.getElementById('reqCopyBtn');
+  const openReqBtns = document.querySelectorAll('.open-req-btn');
+
+  const openReqModal = (e) => {
+    if (e) e.preventDefault();
+    if (!reqModal) return;
+    reqModal.classList.add('open');
+    reqModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeReqModal = () => {
+    if (!reqModal) return;
+    reqModal.classList.remove('open');
+    reqModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  openReqBtns.forEach(btn => {
+    btn.addEventListener('click', openReqModal);
+  });
+
+  reqModalClose?.addEventListener('click', closeReqModal);
+  reqModalOverlay?.addEventListener('click', closeReqModal);
+  reqCloseBtn?.addEventListener('click', closeReqModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && reqModal?.classList.contains('open')) {
+      closeReqModal();
+    }
+  });
+
+  // Auto open if hash is #requisites
+  if (window.location.hash === '#requisites') {
+    openReqModal();
+  }
+
+  // Copy requisites functionality
+  reqCopyBtn?.addEventListener('click', async () => {
+    const textToCopy = `ООО «Seven Heavens Travel» («SEVEN HEAVENS TRAVEL» MCHJ)
+Директор: Тойиров Асадбек Хамзаевич
+ИНН: 313 091 434
+ОКЭД: 79110
+Адрес: 100015, Узбекистан, г. Ташкент, Мирабадский р-н, ул. Мироншох 3-й проезд, 16
+График работы: ПН-СБ 10:00 - 22:00 (ВС - выходной)
+Телефон: +998 (88) 898-77-78
+Email: travel@sevenheavens.uz
+Банк: АКБ «Ипак Йули»
+МФО: 00444
+Р/с: 20208000707481626001`;
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      const prevText = reqCopyBtn.textContent;
+      reqCopyBtn.textContent = '✓ Скопировано!';
+      setTimeout(() => {
+        reqCopyBtn.textContent = prevText;
+      }, 2000);
+    } catch (err) {
+      console.error('Clipboard copy error:', err);
+    }
+  });
 })();
