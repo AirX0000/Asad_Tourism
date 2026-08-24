@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=10" />
   <link rel="icon" type="image/png" href="favicon.png?v=1">
 </head>
 
@@ -384,18 +384,28 @@
             <h2 class="section-title">Ваш тур <em>начинается<br />здесь</em></h2>
             <p>Оставьте заявку или свяжитесь напрямую — мы ответим в течение нескольких минут.</p>
             <div class="contact__details">
-              <a href="tel:+998888987778" class="contact__item">
+              <div class="contact__item contact__item--phones">
                 <div class="contact__item-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path
                       d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z" />
                   </svg>
                 </div>
-                <div>
-                  <span>Телефон / Telefon</span>
-                  <strong>+998 (88) 898-77-78</strong>
+                <div class="contact__phones-wrap">
+                  <span class="contact__phone-lbl">24/7 доступность / Горячая линия</span>
+                  <a href="tel:+998888987778" class="contact__phone-primary">
+                    +998 (88) 898-77-78
+                    <span class="badge-247">24/7</span>
+                  </a>
+                  <span class="contact__phone-lbl" style="margin-top: 10px;">Номера менеджеров:</span>
+                  <div class="contact__managers-list">
+                    <a href="tel:+998888987708" class="manager-phone-chip">+998 (88) 898-77-08</a>
+                    <a href="tel:+998888987718" class="manager-phone-chip">+998 (88) 898-77-18</a>
+                    <a href="tel:+998888987728" class="manager-phone-chip">+998 (88) 898-77-28</a>
+                  </div>
                 </div>
-              </a>
+              </div>
+
               <a href="mailto:travel@sevenheavens.uz" class="contact__item">
                 <div class="contact__item-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -512,9 +522,18 @@
 
           <div class="footer__contact">
             <h4>Контакты и График</h4>
-            <p><a href="tel:+998888987778">+998 (88) 898-77-78</a></p>
+            <p class="footer__phone-247">
+              <a href="tel:+998888987778">+998 (88) 898-77-78</a>
+              <span class="badge-247">24/7</span>
+            </p>
+            <div class="footer__managers-phones">
+              <span>Номера менеджеров:</span>
+              <a href="tel:+998888987708">+998 (88) 898-77-08</a>
+              <a href="tel:+998888987718">+998 (88) 898-77-18</a>
+              <a href="tel:+998888987728">+998 (88) 898-77-28</a>
+            </div>
             <p><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></p>
-            <p class="footer__schedule"><strong>График работы:</strong> ПН–СБ: 10:00 – 22:00 (ВС — выходной)</p>
+            <p class="footer__schedule"><strong>График работы офиса:</strong> ПН–СБ: 10:00 – 22:00 (ВС — выходной)</p>
             <div class="footer__socials">
               <a href="https://www.instagram.com/sevenheavens.uz?igsh=c3M0OXo2cDFqZHRy&utm_source=qr" target="_blank"
                 rel="noopener" aria-label="Instagram">
@@ -593,7 +612,7 @@
             <div class="req-modal__card">
               <div class="req-modal__card-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>Адрес и График работы</span>
+                <span>Адрес и Контакты</span>
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">Почтовый и юридический адрес:</span>
@@ -604,10 +623,18 @@
                 <strong>ПН – СБ: 10:00 – 22:00 <span style="font-weight:400;color:var(--warm);">(ВС: выходной)</span></strong>
               </div>
               <div class="req-modal__item">
-                <span class="req-modal__lbl">Телефон:</span>
+                <span class="req-modal__lbl">24/7 доступность:</span>
                 <strong><a href="tel:+998888987778">+998 (88) 898-77-78</a></strong>
               </div>
               <div class="req-modal__item">
+                <span class="req-modal__lbl">Номера менеджеров:</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;">
+                  <a href="tel:+998888987708" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-08</a>
+                  <a href="tel:+998888987718" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-18</a>
+                  <a href="tel:+998888987728" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-28</a>
+                </div>
+              </div>
+              <div class="req-modal__item" style="margin-top:2px;">
                 <span class="req-modal__lbl">Email:</span>
                 <strong><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></strong>
               </div>

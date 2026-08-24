@@ -1004,6 +1004,9 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   box-shadow: 0 8px 24px rgba(25,31,43,0.08);
   transform: translateX(4px);
 }
+.contact__item--phones {
+  align-items: flex-start;
+}
 .contact__item-icon {
   width: 44px; height: 44px;
   background: var(--navy);
@@ -1017,6 +1020,102 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .contact__item-icon svg { width: 18px; height: 18px; }
 .contact__item span { font-size: 0.75rem; color: var(--warm); display: block; }
 .contact__item strong { display: block; font-size: 0.95rem; }
+
+.contact__phones-wrap {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.contact__phone-lbl {
+  font-size: 0.74rem;
+  color: var(--warm);
+  margin-bottom: 3px;
+}
+.contact__phone-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  transition: color var(--trans-fast);
+}
+.contact__phone-primary:hover {
+  color: var(--steel);
+}
+.badge-247 {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: #10b981;
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 12px;
+  line-height: 1.2;
+}
+.contact__managers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.manager-phone-chip {
+  display: inline-block;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--navy);
+  background: var(--cream);
+  border: 1px solid var(--silver);
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all var(--trans-fast);
+}
+.manager-phone-chip:hover {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+.footer__phone-247 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.footer__phone-247 a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white) !important;
+}
+.footer__managers-phones {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(147, 164, 194, 0.15);
+  border-radius: 8px;
+}
+.footer__managers-phones span {
+  font-size: 0.72rem;
+  color: var(--mist);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.footer__managers-phones a {
+  font-size: 0.82rem;
+  color: var(--silver) !important;
+  text-decoration: none;
+}
+.footer__managers-phones a:hover {
+  color: var(--white) !important;
+  text-decoration: underline;
+}
 
 /* Form */
 .contact__form-wrap {
