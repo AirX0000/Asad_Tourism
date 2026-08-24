@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
   <link rel="icon" type="image/png" href="favicon.png?v=1">
 </head>
 
@@ -31,6 +31,7 @@
           <li><a href="#destinations" class="nav__link">Направления</a></li>
           <li><a href="#tours" class="nav__link">Туры</a></li>
           <li><a href="#why" class="nav__link">Почему мы</a></li>
+          <li><a href="#requisites" class="nav__link">Реквизиты</a></li>
           <li><a href="#contact" class="nav__link nav__link--cta">Связаться</a></li>
         </ul>
         <button class="nav__burger" id="nav-burger" aria-label="Меню">
@@ -391,24 +392,34 @@
                   </svg>
                 </div>
                 <div>
-                  <span>Телефон</span>
+                  <span>Телефон / Telefon</span>
                   <strong>+998 (88) 898-77-78</strong>
                 </div>
               </a>
-              <a href="https://www.instagram.com/sevenheavens.uz?igsh=c3M0OXo2cDFqZHRy&utm_source=qr"
-                class="contact__item" target="_blank" rel="noopener">
+              <a href="mailto:travel@sevenheavens.uz" class="contact__item">
                 <div class="contact__item-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                    <path d="M17.5 6.5h.01" />
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
                   </svg>
                 </div>
                 <div>
-                  <span>Instagram</span>
-                  <strong>sevenheavens.uz</strong>
+                  <span>Электронная почта / Email</span>
+                  <strong>travel@sevenheavens.uz</strong>
                 </div>
               </a>
+              <div class="contact__item">
+                <div class="contact__item-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+                <div>
+                  <span>Режим работы / Ish rejimi</span>
+                  <strong>ПН–СБ: 10:00 – 22:00 <em style="font-weight:400;font-style:normal;color:var(--warm);">(ВС — выходной)</em></strong>
+                </div>
+              </div>
               <div class="contact__item">
                 <div class="contact__item-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -417,21 +428,33 @@
                   </svg>
                 </div>
                 <div>
-                  <span>Адрес</span>
-                  <strong>Ташкент, Узбекистан</strong>
+                  <span>Адрес / Manzil</span>
+                  <strong>Ташкент, Мирабадский р-н, ул. Мироншох 3-й проезд, 16</strong>
+                </div>
+              </div>
+              <div class="contact__item">
+                <div class="contact__item-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <div>
+                  <span>Директор / Rahbar</span>
+                  <strong>Тойиров Асадбек Хамзаевич</strong>
                 </div>
               </div>
             </div>
           </div>
           <div class="contact__form-wrap" id="contact-form" data-reveal>
-            <form class="contact__form" id="contactForm" novalidate>
+            <form class="contact__form" id="contactForm" novalidate autocomplete="on">
               <h3>Оставить заявку</h3>
               <div class="form-group">
-                <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+                <input type="text" id="name" name="name" placeholder="Ваше имя" required autocomplete="name" />
                 <label for="name">Ваше имя</label>
               </div>
               <div class="form-group">
-                <input type="tel" id="phone" name="phone" placeholder="+998 __ ___ __ __" required />
+                <input type="tel" id="phone" name="phone" placeholder="+998 __ ___ __ __" required autocomplete="tel" inputmode="tel" />
                 <label for="phone">Телефон</label>
               </div>
               <div class="form-group">
@@ -462,6 +485,113 @@
       </div>
     </section>
 
+    <!-- ======== REQUISITES & LICENSE (YURIDIK MA'LUMOTLAR) ======== -->
+    <section class="requisites" id="requisites">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <span class="section-tag">O‘zbekiston Respublikasi qonunchiligi talablari</span>
+          <h2 class="section-title">Yuridik ma'lumotlar va litsenziya<br /><em>Официальные реквизиты компании</em></h2>
+          <p class="section-desc">
+            O‘zbekiston Respublikasi Vazirlar Mahkamasining 2022-yil 21-fevraldagi 80-sonli qarori bilan tasdiqlangan
+            «Turizm faoliyatini litsenziyalash pasporti» talablariga muvofiq rasmiy ma'lumotlar
+          </p>
+        </div>
+
+        <div class="requisites__grid">
+          <!-- Card 1: Legal Entity & Director -->
+          <div class="requisite-card" data-reveal>
+            <div class="requisite-card__header">
+              <div class="requisite-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 21h18M3 7v14M21 7v14M6 11h12M6 15h12M9 7V3h6v4" />
+                </svg>
+              </div>
+              <h3>Tashkilot va Rahbariyat<br /><span>Организация и Руководство</span></h3>
+            </div>
+            <div class="requisite-card__list">
+              <div class="requisite-card__row">
+                <span class="requisite-label">To‘liq nomi / Наименование:</span>
+                <strong class="requisite-val">«SEVEN HEAVENS TRAVEL» Mas'uliyati Cheklangan Jamiyati (ООО «Seven Heavens Travel»)</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Litsenziat / Rahbar (Директор):</span>
+                <strong class="requisite-val">Toyirov Asadbek Xamzayevich (Тойиров Асадбек Хамзаевич)</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">STIR / ИНН:</span>
+                <strong class="requisite-val">313 091 434</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">IFUT / ОКЭД:</span>
+                <strong class="requisite-val">79110 — Turagentliklar faoliyati (Деятельность туристических агентств)</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Location & Work Schedule -->
+          <div class="requisite-card" data-reveal>
+            <div class="requisite-card__header">
+              <div class="requisite-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <h3>Joylashgan yeri va Ish rejimi<br /><span>Адрес и График работы</span></h3>
+            </div>
+            <div class="requisite-card__list">
+              <div class="requisite-card__row">
+                <span class="requisite-label">Joylashgan yeri (pochta manzili) / Адрес:</span>
+                <strong class="requisite-val">100015, O‘zbekiston Respublikasi, Toshkent shahri, Mirobod tumani, Mironshoh 3-tor ko‘chasi, 16-uy</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Ish rejimi / График работы:</span>
+                <strong class="requisite-val">Dushanba – Shanba: 10:00 – 22:00<br /><span style="color:var(--warm);font-weight:400;">Yakshanba: Dam olish kuni (Воскресенье — выходной)</span></strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Aloqa telefoni / Телефон:</span>
+                <strong class="requisite-val"><a href="tel:+998888987778">+998 (88) 898-77-78</a></strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Rasmiy elektron pochta / Email:</span>
+                <strong class="requisite-val"><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Licensing & Banking -->
+          <div class="requisite-card" data-reveal>
+            <div class="requisite-card__header">
+              <div class="requisite-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <h3>Litsenziya va Bank rekvizitlari<br /><span>Лицензия и Банк</span></h3>
+            </div>
+            <div class="requisite-card__list">
+              <div class="requisite-card__row">
+                <span class="requisite-label">Faoliyat turi / Лицензирование:</span>
+                <strong class="requisite-val">Turizm sohasidagi turagentlik faoliyati (Chiqish turizmi) / Турагентская деятельность</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Litsenziya portali / Реестр:</span>
+                <strong class="requisite-val">«Litsenziya» AT portali orqali ro‘yxatdan o‘tgan (Ariza № 3149418)</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">Xizmat ko‘rsatuvchi bank / Банк:</span>
+                <strong class="requisite-val">AKB «Ipak Yo'li» (АКБ «Ипак Йули»)</strong>
+              </div>
+              <div class="requisite-card__row">
+                <span class="requisite-label">MFO / H/r (МФО и Р/с):</span>
+                <strong class="requisite-val">MFO: 00444 | H/r: 20208000707481626001</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ======== FOOTER ======== -->
     <footer class="footer">
       <div class="container">
@@ -471,7 +601,7 @@
               <img src="logo.png" alt="Seven Heavens Travel" class="footer__logo-img" />
             </div>
 
-            <p>Туристическое агентство премиального сервиса. Организация путешествий под ключ.</p>
+            <p>«SEVEN HEAVENS TRAVEL» MCHJ — Turizm sohasida yuqori sifatli xizmat ko‘rsatuvchi rasmiy turagentlik.</p>
             <p class="footer__slogan"><em>«Мир ждёт вас»</em></p>
           </div>
 
@@ -481,15 +611,17 @@
               <li><a href="#about">О нас</a></li>
               <li><a href="#destinations">Направления</a></li>
               <li><a href="#tours">Туры</a></li>
+              <li><a href="#why">Почему мы</a></li>
+              <li><a href="#requisites">Реквизиты и Лицензия</a></li>
               <li><a href="#contact">Связаться</a></li>
             </ul>
           </div>
 
           <div class="footer__contact">
-            <h4>Контакты</h4>
+            <h4>Контакты и График</h4>
             <p><a href="tel:+998888987778">+998 (88) 898-77-78</a></p>
-            <p><a href="https://www.instagram.com/sevenheavens.uz?igsh=c3M0OXo2cDFqZHRy&utm_source=qr" target="_blank"
-                rel="noopener">@sevenheavens.uz</a></p>
+            <p><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></p>
+            <p class="footer__schedule"><strong>Ish tartibi:</strong> Dsh–Shnb 10:00–22:00 (Yakshanba — dam olish)</p>
             <div class="footer__socials">
               <a href="https://www.instagram.com/sevenheavens.uz?igsh=c3M0OXo2cDFqZHRy&utm_source=qr" target="_blank"
                 rel="noopener" aria-label="Instagram">
@@ -506,10 +638,19 @@
               </a>
             </div>
           </div>
+
+          <div class="footer__legal">
+            <h4>Yuridik ma'lumotlar</h4>
+            <p class="footer__legal-item"><strong>«SEVEN HEAVENS TRAVEL» MCHJ</strong></p>
+            <p class="footer__legal-item">STIR: 313 091 434 | IFUT: 79110</p>
+            <p class="footer__legal-item">Rahbar: Toyirov Asadbek Xamzayevich</p>
+            <p class="footer__legal-item">Manzil: Toshkent sh., Mirobod t., Mironshoh 3-tor ko‘chasi, 16-uy</p>
+            <p class="footer__legal-item"><a href="#requisites" class="footer__legal-link">Barcha rekvizitlarni ko‘rish →</a></p>
+          </div>
         </div>
         <div class="footer__bottom">
-          <p>© 2026 Seven Heavens Travel. Все права защищены.</p>
-          <p>Ташкент, Узбекистан</p>
+          <p>© 2026 «SEVEN HEAVENS TRAVEL» MCHJ. Barcha huquqlar himoyalangan / Все права защищены.</p>
+          <p>O‘zbekiston, Toshkent shahri</p>
         </div>
       </div>
     </footer>

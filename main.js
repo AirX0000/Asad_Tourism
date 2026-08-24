@@ -11,6 +11,54 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function parseFirestoreDoc(d) {
+  if (!d) return null;
+  const id = d.name ? d.name.split('/').pop() : d.id;
+  const fields = d.fields || {};
+  const obj = { id };
+  for (const [k, v] of Object.entries(fields)) {
+    if (v.stringValue !== undefined) obj[k] = v.stringValue;
+    else if (v.integerValue !== undefined) obj[k] = parseInt(v.integerValue, 10);
+    else if (v.doubleValue !== undefined) obj[k] = parseFloat(v.doubleValue);
+    else if (v.booleanValue !== undefined) obj[k] = v.booleanValue;
+    else if (v.timestampValue !== undefined) obj[k] = v.timestampValue;
+    else if (v.nullValue !== undefined) obj[k] = null;
+    else if (v.arrayValue && v.arrayValue.values) {
+      obj[k] = v.arrayValue.values.map(val => val.stringValue || val.integerValue || val.booleanValue || val);
+    } else if (v.mapValue && v.mapValue.fields) {
+      obj[k] = {};
+      for (const [mk, mv] of Object.entries(v.mapValue.fields)) {
+        obj[k][mk] = mv.stringValue || mv.integerValue || mv.booleanValue || mv;
+      }
+    }
+  }
+  return obj;
+}
+
+async function fetchFirestoreREST(collectionName) {
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/seven-heavens-c4665/databases/(default)/documents/${collectionName}?pageSize=100`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const data = await res.json();
+    if (!data.documents) return [];
+    return data.documents.map(d => parseFirestoreDoc(d));
+  } catch (e) {
+    console.warn(`REST fetch error for ${collectionName}:`, e);
+    return [];
+  }
+}
+
 /* ============================================================
    SEVEN HEAVENS TRAVEL — JavaScript
    Features:
@@ -202,6 +250,23 @@ const db = firebase.firestore();
   const form = document.getElementById('contactForm');
   const toast = document.getElementById('toast');
 
+  // Auto-fill from URL parameters or saved local memory
+  if (form) {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlName = urlParams.get('name') || urlParams.get('fullName') || localStorage.getItem('sh_client_name');
+      const urlPhone = urlParams.get('phone') || urlParams.get('tel') || localStorage.getItem('sh_client_phone');
+      const urlDest = urlParams.get('direction') || urlParams.get('dest') || urlParams.get('tour');
+
+      if (urlName && form.name && !form.name.value) form.name.value = urlName;
+      if (urlPhone && form.phone && !form.phone.value) form.phone.value = urlPhone;
+      if (urlDest && form.direction) {
+        const match = Array.from(form.direction.options).find(o => o.value.toLowerCase().includes(urlDest.toLowerCase()) || o.text.toLowerCase().includes(urlDest.toLowerCase()));
+        if (match) form.direction.value = match.value;
+      }
+    } catch(e) {}
+  }
+
   function showToast() {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 4000);
@@ -277,6 +342,12 @@ const db = firebase.firestore();
         createdAt: new Date().toISOString()
       });
 
+      // Сохраняем для мгновенного автозаполнения в следующий раз
+      try {
+        localStorage.setItem('sh_client_name', name);
+        localStorage.setItem('sh_client_phone', phone);
+      } catch(e) {}
+
       // Trigger Meta (Facebook) Pixel Lead Event if installed on page
       if (typeof window.fbq === 'function') {
         window.fbq('track', 'Lead', {
@@ -332,45 +403,70 @@ const db = firebase.firestore();
     if (!gridContainer) return;
 
     try {
-      const querySnapshot = await db.collection("tours").get();
-      if (querySnapshot.empty) {
+      let tourDocs = [];
+      try {
+        const querySnapshot = await Promise.race([
+          db.collection("tours").get(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500))
+        ]);
+        if (querySnapshot && !querySnapshot.empty) {
+          querySnapshot.forEach(doc => tourDocs.push({ id: doc.id, ...doc.data() }));
+        }
+      } catch(errSDK) {
+        console.warn("SDK fetchTours timeout/failed, trying REST fallback:", errSDK);
+        tourDocs = await fetchFirestoreREST("tours");
+      }
+
+      if (!tourDocs || tourDocs.length === 0) {
         gridContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Туров пока нет, но скоро появятся!</div>';
         return;
       }
 
       let html = '';
-      querySnapshot.forEach(doc => {
-        const tour = doc.data();
-        
+      tourDocs.forEach(tour => {
         let badgeHtml = '';
-        if (tour.badge) {
+        if (tour.badge && tour.badgeText) {
           const badgeClass = tour.badgeColor === 'gold' ? 'tour-card__badge--gold' : '';
-          badgeHtml = `<div class="tour-card__badge ${badgeClass}">${tour.badgeText || ''}</div>`;
+          badgeHtml = `<div class="tour-card__badge ${badgeClass}">${escapeHtml(tour.badgeText)}</div>`;
         }
         
         let includesHtml = '';
         if (tour.includes && Array.isArray(tour.includes)) {
-          includesHtml = tour.includes.map(inc => `<li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>${inc.trim()}</li>`).join('');
+          const cleanIncludes = tour.includes.map(i => String(i || '').trim()).filter(Boolean);
+          if (cleanIncludes.length > 0) {
+            includesHtml = cleanIncludes.map(inc => `<li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>${escapeHtml(inc)}</li>`).join('');
+          }
         }
         
+        const hasDuration = Boolean(tour.duration && String(tour.duration).trim());
+        const hasFlight = Boolean(tour.flight && String(tour.flight).trim());
+        let metaHtml = '';
+        if (hasDuration || hasFlight) {
+          metaHtml = `
+            <div class="tour-card__meta">
+              ${hasDuration ? `<span>🗓 ${escapeHtml(tour.duration)}</span>` : ''}
+              ${hasFlight ? `<span>✈ ${escapeHtml(tour.flight)}</span>` : ''}
+            </div>
+          `;
+        }
+
+        const priceNum = (tour.price !== undefined && tour.price !== null && tour.price !== '' && !isNaN(Number(tour.price))) ? Number(tour.price) : null;
+        const priceHtml = priceNum !== null ? `от <strong>${priceNum} USD</strong>` : '<strong>По запросу</strong>';
+        const imgUrl = tour.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80';
+
         html += `
         <article class="tour-card revealed" data-reveal>
           <div class="tour-card__header">
-            <img src="${tour.image || ''}" alt="${tour.title}" />
+            <img src="${imgUrl}" alt="${escapeHtml(tour.title || 'Тур')}" />
             ${badgeHtml}
           </div>
           <div class="tour-card__body">
-            <div class="tour-card__meta">
-              <span>🗓 ${tour.duration || ''}</span>
-              <span>✈ ${tour.flight || ''}</span>
-            </div>
-            <h3 class="tour-card__title">${tour.title || ''}</h3>
-            <ul class="tour-card__includes">
-              ${includesHtml}
-            </ul>
+            ${metaHtml}
+            <h3 class="tour-card__title">${escapeHtml(tour.title || 'Без названия')}</h3>
+            ${includesHtml ? `<ul class="tour-card__includes">${includesHtml}</ul>` : ''}
             <div class="tour-card__footer">
-              <div class="tour-card__price">от <strong>${tour.price || 0} USD</strong></div>
-              <button class="btn btn--primary btn--sm smart-contact-btn" data-destination="${tour.title}">Забронировать</button>
+              <div class="tour-card__price">${priceHtml}</div>
+              <button class="btn btn--primary btn--sm smart-contact-btn" data-destination="${escapeHtml(tour.title || '')}" data-id="${tour.id}">Забронировать</button>
             </div>
           </div>
         </article>`;
@@ -396,16 +492,16 @@ const db = firebase.firestore();
       });
 
       // Re-apply smart contact buttons logic
-      gridContainer.querySelectorAll('.smart-contact-btn').forEach((btn, index) => {
-        // Find corresponding doc id
-        const docId = querySnapshot.docs[index].id;
+      gridContainer.querySelectorAll('.smart-contact-btn').forEach(btn => {
+        const docId = btn.dataset.id;
         btn.addEventListener('click', async () => {
-          // Track click in analytics
-          try {
-            await db.collection("tours").doc(docId).update({
-              clicks: firebase.firestore.FieldValue.increment(1)
-            });
-          } catch(e) { console.warn("Analytics tracking error", e); }
+          if (docId) {
+            try {
+              await db.collection("tours").doc(docId).update({
+                clicks: firebase.firestore.FieldValue.increment(1)
+              });
+            } catch(e) { console.warn("Analytics tracking notice", e); }
+          }
 
           const dest = btn.dataset.destination;
           const form = document.getElementById('contactForm');
@@ -416,7 +512,6 @@ const db = firebase.firestore();
               if (match) form.direction.value = match.value;
             }
           }
-          // Scroll to form
           const target = document.querySelector('#contact-form') || document.querySelector('#contact');
           if (target) {
             const top = target.getBoundingClientRect().top + window.scrollY - 80;
@@ -425,7 +520,6 @@ const db = firebase.firestore();
         });
       });
       
-      // Re-observe for scroll reveal
       const revealEls = gridContainer.querySelectorAll('[data-reveal]');
       revealEls.forEach(el => el.classList.add('revealed'));
 
@@ -442,21 +536,32 @@ const db = firebase.firestore();
     const grid = document.getElementById('destinations-grid-container');
     if (!grid) return;
     try {
-      const snap = await db.collection('destinations').get();
-      if (snap.empty) {
+      let destDocs = [];
+      try {
+        const snap = await Promise.race([
+          db.collection('destinations').get(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500))
+        ]);
+        if (snap && !snap.empty) {
+          snap.forEach(doc => destDocs.push({ id: doc.id, ...doc.data() }));
+        }
+      } catch(errSDK) {
+        destDocs = await fetchFirestoreREST("destinations");
+      }
+
+      if (!destDocs || destDocs.length === 0) {
         grid.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Направления пока не добавлены.</div>';
         return;
       }
       let html = '';
       let idx = 0;
-      snap.forEach(doc => {
-        const d = doc.data();
+      destDocs.forEach(d => {
         let classes = 'dest-card revealed';
         if (idx === 0) classes += ' dest-card--large';
         if (idx === 3) classes += ' dest-card--wide';
         html += `
         <div class="${classes}" data-reveal>
-          <img src="${d.image || ''}" alt="${d.title}" class="dest-card__img" />
+          <img src="${d.image || ''}" alt="${d.title || ''}" class="dest-card__img" />
           <div class="dest-card__overlay"></div>
           <div class="dest-card__content">
             <span class="dest-card__tag">${d.tag || 'Популярно'}</span>
@@ -486,7 +591,7 @@ const db = firebase.firestore();
         card.addEventListener('mouseleave', () => { card.style.transform = ''; });
       });
     } catch(e) {
-      console.error(e);
+      console.error("fetchDestinations error:", e);
     }
   };
   fetchDestinations();
@@ -496,15 +601,26 @@ const db = firebase.firestore();
     const grid = document.getElementById('reviews-grid-container');
     if (!grid) return;
     try {
-      const snap = await db.collection('reviews').get();
-      grid.classList.add('revealed'); // Ensure container is 100% visible immediately
-      if (snap.empty) {
+      let revDocs = [];
+      try {
+        const snap = await Promise.race([
+          db.collection('reviews').get(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500))
+        ]);
+        if (snap && !snap.empty) {
+          snap.forEach(doc => revDocs.push({ id: doc.id, ...doc.data() }));
+        }
+      } catch(errSDK) {
+        revDocs = await fetchFirestoreREST("reviews");
+      }
+
+      grid.classList.add('revealed');
+      if (!revDocs || revDocs.length === 0) {
         grid.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; width: 100%;">Отзывов пока нет.</div>';
         return;
       }
       let html = '';
-      snap.forEach(doc => {
-        const r = doc.data();
+      revDocs.forEach(r => {
         const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
         const authorName = r.author || r.name || 'Гость';
         const photoUrl = r.image || r.photo || r.avatar || r.avatarUrl || '';
@@ -533,7 +649,7 @@ const db = firebase.firestore();
       });
       grid.innerHTML = html;
     } catch(e) {
-      console.error(e);
+      console.error("fetchReviews error:", e);
       grid.classList.add('revealed');
     }
   };
