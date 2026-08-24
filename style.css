@@ -1052,17 +1052,21 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .contact__phone-primary:hover {
   color: var(--steel);
 }
-.badge-247 {
+.badge-247,
+.contact__item .badge-247,
+.footer .badge-247 {
   display: inline-flex;
   align-items: center;
-  font-size: 0.65rem;
+  justify-content: center;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  background: #10b981;
-  color: #ffffff;
-  padding: 2px 7px;
+  letter-spacing: 0.04em;
+  background: #059669;
+  color: #ffffff !important;
+  padding: 2px 8px;
   border-radius: 12px;
   line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
 }
 .contact__subphones {
   font-size: 0.78rem;
