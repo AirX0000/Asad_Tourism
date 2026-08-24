@@ -1014,10 +1014,16 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--mist);
+  color: #ffffff;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(25, 31, 43, 0.15);
 }
-.contact__item-icon svg { width: 18px; height: 18px; }
+.contact__item-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
 .contact__item span { font-size: 0.75rem; color: var(--warm); display: block; }
 .contact__item strong { display: block; font-size: 0.95rem; }
 
