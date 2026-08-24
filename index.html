@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
   <link rel="icon" type="image/png" href="favicon.png?v=1">
 </head>
 
@@ -397,7 +397,7 @@
                     +998 (88) 898-77-78
                     <span class="badge-247">24/7</span>
                   </a>
-                  <span class="contact__phone-lbl" style="margin-top: 10px;">Номера менеджеров:</span>
+                  <span class="contact__phone-lbl contact__phone-lbl--spaced">Номера менеджеров:</span>
                   <div class="contact__managers-list">
                     <a href="tel:+998888987708" class="manager-phone-chip">+998 (88) 898-77-08</a>
                     <a href="tel:+998888987718" class="manager-phone-chip">+998 (88) 898-77-18</a>
@@ -427,7 +427,7 @@
                 </div>
                 <div>
                   <span>Режим работы / Ish rejimi</span>
-                  <strong>ПН–СБ: 10:00 – 22:00 <em style="font-weight:400;font-style:normal;color:var(--warm);">(ВС — выходной)</em></strong>
+                  <strong>ПН–СБ: 10:00 – 22:00 <em class="contact__schedule-note">(ВС — выходной)</em></strong>
                 </div>
               </div>
               <div class="contact__item">
@@ -573,7 +573,7 @@
       <div class="req-modal__dialog">
         <div class="req-modal__header">
           <div class="req-modal__title-wrap">
-            <span class="section-tag" style="margin-bottom:4px;">Seven Heavens Travel</span>
+            <span class="section-tag req-modal__tag">Seven Heavens Travel</span>
             <h3 id="reqModalTitle">Реквизиты и сведения о компании</h3>
             <p class="req-modal__subtitle">Официальная информация и лицензирование</p>
           </div>
@@ -593,7 +593,7 @@
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">Юридическое наименование:</span>
-                <strong>ООО «Seven Heavens Travel»<br><small style="font-weight:400;color:var(--warm);">(«SEVEN HEAVENS TRAVEL» MCHJ)</small></strong>
+                <strong>ООО «Seven Heavens Travel»<br><small class="req-modal__subname">(«SEVEN HEAVENS TRAVEL» MCHJ)</small></strong>
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">Директор / Руководитель:</span>
@@ -620,7 +620,7 @@
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">График работы:</span>
-                <strong>ПН – СБ: 10:00 – 22:00 <span style="font-weight:400;color:var(--warm);">(ВС: выходной)</span></strong>
+                <strong>ПН – СБ: 10:00 – 22:00 <span class="req-modal__note">(ВС: выходной)</span></strong>
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">24/7 доступность:</span>
@@ -628,13 +628,13 @@
               </div>
               <div class="req-modal__item">
                 <span class="req-modal__lbl">Номера менеджеров:</span>
-                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;">
-                  <a href="tel:+998888987708" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-08</a>
-                  <a href="tel:+998888987718" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-18</a>
-                  <a href="tel:+998888987728" style="font-weight:600;font-size:0.86rem;color:var(--navy);">+998 88 898-77-28</a>
+                <div class="req-modal__managers-list">
+                  <a href="tel:+998888987708" class="req-modal__manager-link">+998 88 898-77-08</a>
+                  <a href="tel:+998888987718" class="req-modal__manager-link">+998 88 898-77-18</a>
+                  <a href="tel:+998888987728" class="req-modal__manager-link">+998 88 898-77-28</a>
                 </div>
               </div>
-              <div class="req-modal__item" style="margin-top:2px;">
+              <div class="req-modal__item req-modal__item--spaced">
                 <span class="req-modal__lbl">Email:</span>
                 <strong><a href="mailto:travel@sevenheavens.uz">travel@sevenheavens.uz</a></strong>
               </div>
@@ -668,10 +668,10 @@
           </div>
         </div>
         <div class="req-modal__footer">
-          <button class="btn btn--primary" id="reqCopyBtn" type="button" style="padding: 10px 24px; font-size: 0.85rem;">
+          <button class="btn btn--primary req-modal__btn-copy" id="reqCopyBtn" type="button">
             Скопировать реквизиты
           </button>
-          <button class="btn btn--ghost" id="reqCloseBtn" type="button" style="padding: 10px 24px; font-size: 0.85rem; color:var(--navy); border-color:var(--silver);">
+          <button class="btn btn--ghost req-modal__btn-close" id="reqCloseBtn" type="button">
             Закрыть
           </button>
         </div>

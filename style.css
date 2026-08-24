@@ -1323,13 +1323,50 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-.req-modal__footer {
-  padding: 16px 28px;
-  border-top: 1px solid var(--silver);
+.contact__phone-lbl--spaced {
+  margin-top: 10px;
+}
+.contact__schedule-note {
+  font-weight: 400;
+  font-style: normal;
+  color: var(--warm);
+}
+
+.req-modal__tag {
+  margin-bottom: 4px;
+}
+.req-modal__subname,
+.req-modal__note {
+  font-weight: 400;
+  color: var(--warm);
+}
+.req-modal__managers-list {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  background: var(--white);
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+.req-modal__manager-link {
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--navy);
+  text-decoration: none;
+}
+.req-modal__manager-link:hover {
+  text-decoration: underline;
+}
+.req-modal__item--spaced {
+  margin-top: 2px;
+}
+.req-modal__btn-copy {
+  padding: 10px 24px;
+  font-size: 0.85rem;
+}
+.req-modal__btn-close {
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  color: var(--navy);
+  border-color: var(--silver);
 }
 
 /* ============================================
