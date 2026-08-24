@@ -1031,10 +1031,12 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   color: var(--warm);
   margin-bottom: 3px;
 }
-.contact__phone-primary {
+.contact__phone-row {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+.contact__phone-primary {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--navy);
@@ -1047,7 +1049,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
 .badge-247 {
   display: inline-flex;
   align-items: center;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   background: #10b981;
@@ -1056,65 +1058,43 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; }
   border-radius: 12px;
   line-height: 1.2;
 }
-.contact__managers-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.contact__subphones {
+  font-size: 0.78rem;
+  color: var(--warm);
   margin-top: 4px;
 }
-.manager-phone-chip {
-  display: inline-block;
-  font-size: 0.84rem;
-  font-weight: 500;
-  color: var(--navy);
-  background: var(--cream);
-  border: 1px solid var(--silver);
-  padding: 4px 10px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: all var(--trans-fast);
+.contact__subphones span {
+  display: inline;
+  font-size: inherit;
+  color: inherit;
 }
-.manager-phone-chip:hover {
-  background: var(--navy);
-  color: var(--white);
-  border-color: var(--navy);
+.contact__subphones a {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--trans-fast);
+}
+.contact__subphones a:hover {
+  color: var(--steel);
+  text-decoration: underline;
 }
 
-.footer__phone-247 {
+.footer__phone-row {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
 }
-.footer__phone-247 a {
+.footer__phone-row a {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--white) !important;
 }
-.footer__managers-phones {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin: 8px 0 12px;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(147, 164, 194, 0.15);
-  border-radius: 8px;
-}
-.footer__managers-phones span {
-  font-size: 0.72rem;
-  color: var(--mist);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-.footer__managers-phones a {
-  font-size: 0.82rem;
-  color: var(--silver) !important;
-  text-decoration: none;
-}
-.footer__managers-phones a:hover {
-  color: var(--white) !important;
-  text-decoration: underline;
+.footer__address-text {
+  font-size: 0.84rem;
+  color: var(--warm);
+  line-height: 1.5;
+  margin-top: 4px;
 }
 
 /* Form */
