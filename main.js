@@ -621,12 +621,14 @@ async function fetchFirestoreREST(collectionName) {
       }
       let html = '';
       revDocs.forEach(r => {
-        const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
-        const authorName = r.author || r.name || 'Гость';
+        const rating = Math.max(0, Math.min(5, parseInt(r.rating) || 5));
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const authorName = (r.author || r.name || 'Гость').trim();
         const photoUrl = r.image || r.photo || r.avatar || r.avatarUrl || '';
         
         let topPhotoHtml = '';
-        let avatarHtml = `<div class="review-card__avatar">${authorName[0].toUpperCase()}</div>`;
+        const firstChar = authorName.length > 0 ? authorName[0].toUpperCase() : 'Г';
+        let avatarHtml = `<div class="review-card__avatar">${firstChar}</div>`;
         
         if (photoUrl) {
           topPhotoHtml = `<div style="width:100%; height:210px; border-radius:12px; overflow:hidden; margin-bottom:16px; box-shadow:0 4px 12px rgba(25,31,43,0.08); border:1px solid rgba(0,0,0,0.05);"><img src="${photoUrl}" alt="${authorName}" style="width:100%; height:100%; object-fit:cover; display:block;"></div>`;
